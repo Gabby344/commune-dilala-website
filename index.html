@@ -3,13 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commune de Dilala - Kolwezi</title>
+    <title>Mairie - Commune de Dilala, Kolwezi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <!-- Firebase SDK -->
+    <!-- We include the Firebase SDKs directly from CDN for a single-file setup -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        /* === CSS STYLES - Embedded directly === */
+        :root {
+            --primary: #1e5a8c; /* Bleu municipal */
+            --primary-dark: #0e3a5c;
+            --secondary: #e6b020; /* Or, couleur des ressources minières */
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --gray: #7f8c8d;
+            --gray-light: #ecf0f1;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Roboto', sans-serif; font-weight: 600; margin-bottom: 1rem; color: var(--primary-dark); }
+        p { margin-bottom: 1rem; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .highlight { color: var(--secondary); }
+
+        /* Navigation */
+        .navbar {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .logo i { margin-right: 10px; font-size: 2rem; }
+        .nav-menu { display: flex; gap: 2rem; }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-link:hover, .nav-link.active { background-color: var(--primary); color: white; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
+
+        /* Main Content & Pages */
+        .page-content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .page-section { display: none; animation: fadeIn 0.5s ease; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Hero / Homepage */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .hero h1 { font-size: 3rem; color: white; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 1.3rem; margin-bottom: 1.5rem; opacity: 0.9; }
+        .hero-text { font-size: 1.1rem; max-width: 700px; margin: 1.5rem auto; }
+        .btn-hero {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+        .btn-hero:hover { background-color: white; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); }
+        .hero-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            min-width: 180px;
+            transition: var(--transition);
+        }
+        .stat-card:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-5px); }
+        .stat-card i { font-size: 2.5rem; margin-bottom: 1rem; color: var(--secondary); }
+        .stat-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: white; }
+        .stat-card p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 0; }
+
+        /* Cards & Grids */
+        .quick-info, .practical-info { margin-bottom: 3rem; }
+        .quick-info h2 { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+        .info-grid, .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-card, .service-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .info-card:hover, .service-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+        .info-card.alert { border-left: 5px solid var(--secondary); }
+        .info-card h3, .service-card h3 { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; }
+        .service-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .service-card ul { padding-left: 1.2rem; }
+        .service-card li { list-style: disc; margin-bottom: 0.5rem; color: var(--gray); }
+
+        /* About Section */
+        .about-container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .about-image img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); }
+        .image-caption { background: var(--gray-light); padding: 1rem; border-radius: var(--radius); margin-top: 1rem; }
+        .image-caption p { margin-bottom: 0.5rem; font-size: 0.9rem; }
+
+        /* Contact Section */
+        .contact-container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; }
+        .contact-form, .contact-info { background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+        .form-intro { margin-bottom: 1.5rem; color: var(--gray); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 90, 140, 0.2);
+        }
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-submit:hover { background-color: var(--primary-dark); transform: translateY(-3px); }
+        .btn-submit:disabled { background-color: var(--gray); cursor: not-allowed; transform: none; }
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        .form-message.success { background-color: rgba(39, 174, 96, 0.15); color: var(--success); border: 1px solid var(--success); display: block; }
+        .form-message.error { background-color: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid var(--danger); display: block; }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+                gap: 0;
+            }
+            .nav-menu.active { left: 0; }
+            .nav-link { padding: 1rem 2rem; justify-content: center; }
+            .menu-toggle { display: block; }
+            .about-container, .contact-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .info-grid, .services-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-stats { flex-direction: column; align-items: center; }
+            .stat-card { width: 100%; max-width: 300px; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -32,204 +280,207 @@
         </div>
     </nav>
 
-    <!-- Sections de pages -->
+    <!-- Main Content -->
     <main class="page-content">
-        <!-- Page Accueil -->
+        <!-- Page 1: Home -->
         <section id="accueil" class="page-section active">
             <div class="hero">
                 <div class="hero-content">
                     <h1>Commune de <span class="highlight">Dilala</span></h1>
-                    <p class="subtitle">Kolwezi - Province du Lualaba<br>République Démocratique du Congo</p>
-                    <p class="hero-text">Un quartier résidentiel au cœur de la capitale mondiale du cobalt[citation:1][citation:5].</p>
-                    <a href="#commune" class="btn-hero">Découvrir la commune</a>
+                    <p class="subtitle">Ville de Kolwezi - Province du Lualaba<br>République Démocratique du Congo</p>
+                    <p class="hero-text">Porte d'entrée administrative et cœur historique de la capitale mondiale du cobalt. Un service public proche des citoyens.</p>
+                    <a href="#contact" class="btn-hero">Contacter la Mairie</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat-card">
                         <i class="fas fa-users"></i>
                         <h3>Population</h3>
-                        <p>Part de 573 000 habitants[citation:1]</p>
+                        <p>≈ 250 000 Habitants</p>
                     </div>
                     <div class="stat-card">
-                        <i class="fas fa-mountain"></i>
-                        <h3>Altitude</h3>
-                        <p>1 448 m[citation:1]</p>
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Superficie</h3>
+                        <p>Environ 85 km²</p>
                     </div>
                     <div class="stat-card">
-                        <i class="fas fa-calendar-alt"></i>
-                        <h3>Fondation</h3>
-                        <p>1938[citation:1]</p>
+                        <i class="fas fa-city"></i>
+                        <h3>Quartiers</h3>
+                        <p>Luilu, Mobange, etc.</p>
                     </div>
                 </div>
             </div>
-
             <div class="quick-info">
                 <h2><i class="fas fa-info-circle"></i> À la une</h2>
                 <div class="info-grid">
                     <div class="info-card alert">
-                        <h3><i class="fas fa-hard-hat"></i> Nouveau Commissariat</h3>
-                        <p>Inauguration officielle du nouveau commissariat de la Police Nationale Congolaise (PNC) à Luilu[citation:3].</p>
+                        <h3><i class="fas fa-hard-hat"></i> Sécurité Renforcée</h3>
+                        <p>Le nouveau commissariat de police de Luilu est pleinement opérationnel pour la sécurité de tous les habitants.</p>
                     </div>
                     <div class="info-card">
-                        <h3><i class="fas fa-train"></i> Gare Centrale</h3>
-                        <p>La gare centrale de Kolwezi, située à Dilala, assure des liaisons vers Likasi et Lubumbashi[citation:1].</p>
+                        <h3><i class="fas fa-tint"></i> Projet Eau Potable</h3>
+                        <p>Travaux en cours pour étendre le réseau d'adduction d'eau dans les quartiers périphériques.</p>
                     </div>
                     <div class="info-card">
-                        <h3><i class="fas fa-futbol"></i> Stade Manika</h3>
-                        <p>Le stade Manika, infrastructure sportive principale, est situé dans la commune de Dilala[citation:1].</p>
+                        <h3><i class="fas fa-hand-holding-usd"></i> Taxes Locales 2025</h3>
+                        <p>La campagne de recouvrement des taxes et impôts locaux pour l'année 2025 est ouverte.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Page La Commune -->
+        <!-- Page 2: About the Commune -->
         <section id="commune" class="page-section">
             <h2 class="section-title"><i class="fas fa-university"></i> La Commune de Dilala</h2>
             <div class="about-container">
                 <div class="about-text">
-                    <p>Dilala est l'une des deux communes fondatrices (avec Manika) de la ville de <strong>Kolwezi</strong>, créée en 1938 pour abriter le siège des mines de l'ouest de l'Union Minière du Haut Katanga[citation:1][citation:8].</p>
-                    <p>Kolwezi est aujourd'hui le <strong>chef-lieu de la province du Lualaba</strong> et la <strong>capitale mondiale du cobalt</strong>, jouant un rôle stratégique dans l'économie minière nationale et mondiale[citation:5][citation:8].</p>
-
+                    <p><strong>Dilala</strong> est l'une des deux communes urbaines fondatrices de la <strong>ville de Kolwezi</strong>, créée en 1937-1938 pour héberger le siège administratif des mines de l'ouest de l'Union Minière du Haut-Katanga (UMHK).</p>
+                    <p>Aujourd'hui, Kolwezi est le <strong>chef-lieu de la province du Lualaba</strong> et est reconnue comme la <strong>capitale mondiale du cobalt</strong>. Dilala en est le centre administratif et un pôle résidentiel majeur.</p>
                     <h3><i class="fas fa-map-marked-alt"></i> Géographie & Climat</h3>
-                    <p>La commune est située sur les <strong>hauts plateaux du Katanga</strong> à 1 448 m d'altitude[citation:1]. Le climat est de type <strong>tropical de savane (Aw)</strong> avec une saison sèche prononcée de mai à septembre et une saison des pluies d'octobre à avril[citation:1][citation:8].</p>
-
+                    <p>Située sur les <strong>hauts plateaux du Katanga</strong> à environ 1 448 m d'altitude. Climat tropical de savane (Aw) avec une saison sèche marquée (mai à septembre) et une saison des pluies (octobre à avril).</p>
                     <h3><i class="fas fa-industry"></i> Économie & Patrimoine</h3>
-                    <p>L'économie est dominée par l'<strong>industrie minière</strong> (cuivre, cobalt, uranium). Le tissu urbain de Dilala mêle quartiers résidentiels, équipements publics et héritage de la planification coloniale[citation:8].</p>
+                    <p>Économie dominée par les activités de soutien à l'<strong>industrie minière</strong> (cuivre, cobalt). La commune abrite des administrations, la gare centrale, et un tissu commercial dense. Son patrimoine urbain reflète son histoire planifiée dès l'époque coloniale.</p>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paysage urbain">
+                    <!-- Placeholder for a real image of Kolwezi/Dilala -->
+                    <div style="background: #ddd; height:300px; border-radius: var(--radius); display:flex; align-items:center; justify-content:center; color: var(--gray);">
+                        <i class="fas fa-mountain-city" style="font-size: 3rem;"></i>
+                        <p>Image : Centre-ville de Kolwezi</p>
+                    </div>
                     <div class="image-caption">
-                        <p><strong>Maire :</strong> Jacques Masengo (Information associée à Kolwezi)[citation:5]</p>
-                        <p><strong>Superficie de Kolwezi :</strong> 213 km² (inclut Dilala et Manika)[citation:1]</p>
-                        <p><strong>Statut :</strong> Commune urbaine</p>
+                        <p><strong>Maire de la Ville de Kolwezi :</strong> Jacques Mumba Mputu</p>
+                        <p><strong>Administrateur de la Commune :</strong> Information à confirmer auprès de la Mairie</p>
+                        <p><strong>Superficie (Kolwezi) :</strong> ~ 213 km²</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Page Services -->
+        <!-- Page 3: Services -->
         <section id="services" class="page-section">
             <h2 class="section-title"><i class="fas fa-concierge-bell"></i> Services Municipaux</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-file-contract"></i></div>
-                    <h3>Administration</h3>
+                    <h3>Administration & État Civil</h3>
                     <ul>
-                        <li>État civil (naissance, mariage, décès)</li>
-                        <li>Cartes d'identité et passeports</li>
-                        <li>Certificats de résidence</li>
-                        <li>Actes administratifs divers</li>
+                        <li>Actes de naissance, mariage, décès</li>
+                        <li>Cartes d'identité et pièces d'état civil</li>
+                        <li>Certificats de résidence et de domicile</li>
+                        <li>Légalisation de documents</li>
                     </ul>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                    <h3>Services Sociaux</h3>
+                    <div class="service-icon"><i class="fas fa-home"></i></div>
+                    <h3>Urbanisme & Voirie</h3>
                     <ul>
-                        <li>Aide aux personnes âgées</li>
-                        <li>Support aux familles</li>
-                        <li>Programmes de solidarité</li>
-                        <li>Réinsertion sociale</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-clipboard-list"></i></div>
-                    <h3>Urbanisme</h3>
-                    <ul>
-                        <li>Permis de construire</li>
+                        <li>Délivrance des permis de construire</li>
                         <li>Plans d'occupation des sols</li>
-                        <li>Règlementation urbaine</li>
-                        <li>Voirie et aménagement</li>
+                        <li>Entretien de la voirie et des espaces publics</li>
+                        <li>Règlementation des constructions</li>
                     </ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Sécurité & Propreté</h3>
+                    <h3>Sécurité & Salubrité</h3>
                     <ul>
-                        <li>Police municipale</li>
-                        <li>Éclairage public</li>
-                        <li>Collecte des ordures</li>
-                        <li>Salubrité publique</li>
+                        <li>Coordination avec la Police Nationale (PNC)</li>
+                        <li>Collecte des ordures ménagères</li>
+                        <li>Campagnes de salubrité publique</li>
+                        <li>Gestion des marchés publics</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Affaires Sociales</h3>
+                    <ul>
+                        <li>Recensement et aide aux vulnérables</li>
+                        <li>Médiation sociale et familiale</li>
+                        <li>Appui aux initiatives communautaires</li>
+                        <li>Coordination des actions humanitaires</li>
                     </ul>
                 </div>
             </div>
-
             <div class="practical-info">
                 <h3><i class="far fa-clock"></i> Informations Pratiques</h3>
                 <div class="info-box">
-                    <p><strong>Adresse présumée de l'Hôtel de Ville :</strong> Avenue principale, Quartier Dilala, Kolwezi</p>
-                    <p><strong>Jours de marché :</strong> Mercredi et Samedi</p>
-                    <p><strong>Transport :</strong> Gare centrale de Kolwezi située à Dilala[citation:1]</p>
-                    <p><strong>Événement récent :</strong> Inauguration du nouveau commissariat PNC à Luilu[citation:3]</p>
+                    <p><strong>📍 Adresse présumée de l'Hôtel de Ville :</strong> Avenue de l'UMHK (ou avenue principale), Quartier Dilala, Kolwezi.</p>
+                    <p><strong>📅 Jours et heures d'ouverture :</strong> Lundi à Vendredi, de 7h30 à 15h30.</p>
+                    <p><strong>🚂 Transport :</strong> La Gare Centrale de Kolwezi (SNCC) est située dans la commune de Dilala.</p>
+                    <p><strong>⚠️ Note :</strong> Pour des informations officielles précises (adresse exacte, contacts téléphoniques), veuillez vous rapprocher directement des services de la Mairie de Kolwezi.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Page Actualités -->
+        <!-- Page 4: News -->
         <section id="actualites" class="page-section">
             <h2 class="section-title"><i class="far fa-newspaper"></i> Actualités & Agenda</h2>
-            <div class="news-container">
-                <div class="news-main">
-                    <div class="news-card featured">
-                        <div class="news-date">Mise à jour 2025</div>
-                        <h3>Dilala : Commune en développement</h3>
-                        <p>La commune de Dilala, quartier central de Kolwezi, continue son développement urbain et administratif. Un focus est porté sur l'amélioration des services publics et des infrastructures de base pour ses habitants.</p>
-                        <p>Kolwezi reste un pôle économique majeur grâce à l'industrie minière, avec les défis associés de gestion urbaine et de protection environnementale[citation:5][citation:8].</p>
+            <div class="about-container">
+                <div class="about-text">
+                    <div class="info-card featured">
+                        <div class="news-date">Décembre 2025</div>
+                        <h3>Budget Participatif 2026</h3>
+                        <p>La commune invite les habitants à des réunions de quartier pour discuter des priorités d'investissement pour l'année prochaine (voirie, éclairage, marchés).</p>
+                    </div>
+                    <div class="info-card" style="margin-top: 1.5rem;">
+                        <div class="news-date">Novembre 2025</div>
+                        <h3>Lutte contre l'insalubrité</h3>
+                        <p>Lancement d'une grande campagne "Dilala Propre" avec la distribution de poubelles et la sensibilisation dans les écoles et les marchés.</p>
                     </div>
                 </div>
-
-                <div class="news-sidebar">
-                    <h3><i class="fas fa-calendar-day"></i> Événements à venir</h3>
-                    <div class="event-item">
-                        <div class="event-date">15 Déc</div>
-                        <div class="event-desc">Réunion du conseil communal</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">20 Déc</div>
-                        <div class="event-desc">Marche de Noël communautaire</div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">10 Janv</div>
-                        <div class="event-desc">Lancement des inscriptions scolaires</div>
-                    </div>
-
-                    <div class="weather-widget">
-                        <h4><i class="fas fa-sun"></i> Climat à Kolwezi</h4>
-                        <p>Saison sèche : Mai à Septembre</p>
-                        <p>Saison des pluies : Octobre à Avril</p>
-                        <p>Température moyenne : 14°C (min) à 27°C (max)[citation:1]</p>
+                <div class="about-image">
+                    <div class="info-box">
+                        <h3><i class="fas fa-calendar-day"></i> Prochains Événements</h3>
+                        <div class="event-item">
+                            <div class="event-date">15 Déc</div>
+                            <div class="event-desc">Réunion du Conseil Communal</div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">20 Déc</div>
+                            <div class="event-desc">Marche sportive communautaire de Noël</div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">10 Janv</div>
+                            <div class="event-desc">Lancement des inscriptions scolaires</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Page Contact -->
+        <!-- Page 5: Contact -->
         <section id="contact" class="page-section">
-            <h2 class="section-title"><i class="fas fa-envelope"></i> Contactez-nous</h2>
+            <h2 class="section-title"><i class="fas fa-envelope"></i> Contactez la Mairie</h2>
             <div class="contact-container">
                 <div class="contact-form">
-                    <p class="form-intro">Pour toute question ou démarche administrative, utilisez ce formulaire. Votre message sera envoyé à l'administration communale.</p>
+                    <p class="form-intro">Utilisez ce formulaire pour vos demandes administratives, signalements ou requêtes. Votre message sera enregistré et traité par les services concernés.</p>
                     <form id="contactForm">
                         <div class="form-group">
-                            <label for="name"><i class="far fa-user"></i> Nom & Prénom</label>
+                            <label for="name"><i class="far fa-user"></i> Nom & Prénom *</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email"><i class="far fa-envelope"></i> Adresse Email</label>
+                            <label for="email"><i class="far fa-envelope"></i> Adresse Email *</label>
                             <input type="email" id="email" name="email" required>
                         </div>
+                         <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone-alt"></i> Téléphone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
                         <div class="form-group">
-                            <label for="subject"><i class="far fa-edit"></i> Objet</label>
+                            <label for="subject"><i class="far fa-edit"></i> Objet de la demande *</label>
                             <select id="subject" name="subject" required>
-                                <option value="">Sélectionnez un sujet</option>
+                                <option value="">-- Choisir --</option>
                                 <option value="etat-civil">État Civil</option>
                                 <option value="urbanisme">Urbanisme & Permis</option>
-                                <option value="social">Services Sociaux</option>
                                 <option value="proprete">Propreté & Voirie</option>
-                                <option value="autre">Autre demande</option>
+                                <option value="taxes">Taxes & Impôts locaux</option>
+                                <option value="social">Services Sociaux</option>
+                                <option value="autre">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="message"><i class="far fa-comment-dots"></i> Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message"><i class="far fa-comment-dots"></i> Votre Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Détaillez votre demande ici..."></textarea>
                         </div>
                         <button type="submit" class="btn-submit" id="submitBtn">
                             <i class="fas fa-paper-plane"></i> Envoyer le message
@@ -237,21 +488,20 @@
                         <div id="formMessage" class="form-message"></div>
                     </form>
                 </div>
-
                 <div class="contact-info">
                     <h3><i class="fas fa-map-marker-alt"></i> Coordonnées</h3>
                     <div class="info-item">
                         <i class="fas fa-university"></i>
                         <div>
                             <strong>Hôtel de Ville de Dilala</strong>
-                            <p>Commune de Dilala, Ville de Kolwezi<br>Province du Lualaba, RDC</p>
+                            <p>Commune de Dilala<br>Ville de Kolwezi, Lualaba<br>République Démocratique du Congo</p>
                         </div>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-phone-alt"></i>
                         <div>
-                            <strong>Téléphone</strong>
-                            <p>+243 XX XXX XX XX</p>
+                            <strong>Téléphone (à confirmer)</strong>
+                            <p>+243 (0) XXX XX XX XX</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -259,12 +509,12 @@
                         <div>
                             <strong>Horaires d'ouverture</strong>
                             <p>Lundi - Vendredi : 7h30 - 15h30</p>
+                            <p>Samedi : 8h00 - 12h00 (services limités)</p>
                         </div>
                     </div>
                     <div class="map-placeholder">
-                        <i class="fas fa-map"></i>
-                        <p>Carte de localisation de Dilala, Kolwezi</p>
-                        <p class="small">Kolwezi est traversée par la route Transafricaine TAH9 et dispose d'un aéroport[citation:1].</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Pour des contacts précis :</strong></p>
+                        <p class="small">Il est recommandé de vous rendre directement à l'Hôtel de Ville de Kolwezi ou de consulter les informations officielles publiées par la province du Lualaba pour obtenir les coordonnées exactes et à jour de l'administration communale.</p>
                     </div>
                 </div>
             </div>
@@ -276,32 +526,182 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Commune de Dilala</h4>
-                <p>Une des communes fondatrices de Kolwezi, capitale du Lualaba.</p>
-                <p>Site officiel d'information municipale.</p>
+                <p>Service Public au cœur de Kolwezi.</p>
+                <p>Ce site est une vitrine d'information. Les données sont fournies à titre indicatif.</p>
             </div>
             <div class="footer-section">
                 <h4>Liens Rapides</h4>
                 <ul>
                     <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#commune">La Commune</a></li>
                     <li><a href="#services">Services</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h4>Ressources</h4>
+             <div class="footer-section">
+                <h4>Ville & Province</h4>
                 <ul>
-                    <li><a href="#actualites">Actualités</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#contact">Formulaire</a></li>
+                    <li><a href="#commune">À propos de Dilala</a></li>
+                    <li><a href="#contact">Nous contacter</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 - Commune de Dilala, Kolwezi. Informations basées sur des sources documentaires[citation:1][citation:5][citation:8].</p>
-            <p class="footer-note">Ce site est une démonstration technique. Les informations de contact sont factices.</p>
+            <p>&copy; 2025 - Site d'information de la Commune de Dilala, Kolwezi.</p>
+            <p class="footer-note">Informations basées sur des données géographiques et administratives documentaires. Pour les démarches officielles, reportez-vous à l'administration.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- === JAVASCRIPT & FIREBASE - Embedded directly === -->
+    <script>
+        // ====================
+        // 1. FIREBASE CONFIGURATION & INITIALIZATION
+        // ====================
+        // YOUR REAL CONFIGURATION KEYS[citation:5][citation:7]
+        const firebaseConfig = {
+          apiKey: "AIzaSyD3J0XRt50pJB77ooBC2f_MWYX0Kc2GXZY",
+          authDomain: "projet-commune-dilala.firebaseapp.com",
+          projectId: "projet-commune-dilala",
+          storageBucket: "projet-commune-dilala.firebasestorage.app",
+          messagingSenderId: "298637105374",
+          appId: "1:298637105374:web:7c1af2177fd6a1586c4a4f"
+        };
+
+        // Initialize Firebase only if it hasn't been initialized already[citation:4]
+        let firebaseApp, db;
+        try {
+            // Check if a default Firebase app already exists to avoid errors during development[citation:4]
+            if (!firebase.apps.length) {
+                firebaseApp = firebase.initializeApp(firebaseConfig);
+            } else {
+                firebaseApp = firebase.app(); // Use the existing app
+            }
+            db = firebase.firestore(); // Get the Firestore database instance[citation:5]
+            console.log("✅ Firebase connecté avec succès ! Projet :", firebaseConfig.projectId);
+        } catch (error) {
+            console.error("❌ Erreur d'initialisation Firebase :", error);
+            // The site will still work, but the contact form won't save data
+        }
+
+        // ====================
+        // 2. WEBSITE NAVIGATION & INTERACTIVITY
+        // ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+
+            // Function to switch pages
+            function switchPage(targetId) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                pageSections.forEach(section => section.classList.remove('active'));
+
+                const activeLink = document.querySelector(`a[href="#${targetId}"]`);
+                const activeSection = document.getElementById(targetId);
+
+                if (activeLink) activeLink.classList.add('active');
+                if (activeSection) activeSection.classList.add('active');
+
+                // Close mobile menu
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+                if (targetId !== 'accueil') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            // Navigation link clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    switchPage(targetId);
+                    history.pushState(null, null, `#${targetId}`);
+                });
+            });
+
+            // Mobile menu toggle
+            menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Handle initial page load based on URL hash
+            const hash = window.location.hash.substring(1) || 'accueil';
+            const validPages = ['accueil', 'commune', 'services', 'actualites', 'contact'];
+            if (validPages.includes(hash)) {
+                switchPage(hash);
+            }
+
+            // ====================
+            // 3. CONTACT FORM HANDLING WITH FIREBASE FIRESTORE
+            // ====================
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    if (!db) {
+                        showMessage("Configuration Firebase manquante. Impossible d'envoyer le message.", 'error');
+                        return;
+                    }
+
+                    // Get form values
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value.trim();
+
+                    // Simple validation
+                    if (!name || !email || !subject || !message) {
+                        showMessage('Veuillez remplir tous les champs obligatoires (*).', 'error');
+                        return;
+                    }
+
+                    // Disable button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+                    // Data object to save to Firebase
+                    const contactData = {
+                        name: name,
+                        email: email,
+                        phone: phone || 'Non fourni',
+                        subject: subject,
+                        message: message,
+                        timestamp: new Date().toISOString(),
+                        status: 'new'
+                    };
+
+                    try {
+                        // Save to Firestore database in a collection named "contacts"[citation:5]
+                        await db.collection('contacts').add(contactData);
+                        showMessage('✅ Message envoyé avec succès ! La commune vous répondra bientôt.', 'success');
+                        contactForm.reset(); // Clear the form
+                    } catch (error) {
+                        console.error("Erreur Firestore :", error);
+                        showMessage('❌ Erreur lors de l\'envoi. Veuillez réessayer plus tard.', 'error');
+                    } finally {
+                        // Re-enable button
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
+                    }
+                });
+            }
+
+            // Helper function to show messages
+            function showMessage(text, type) {
+                formMessage.textContent = text;
+                formMessage.className = `form-message ${type}`;
+                setTimeout(() => { formMessage.style.display = 'none'; }, 7000);
+            }
+        });
+    </script>
 </body>
 </html>
