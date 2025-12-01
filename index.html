@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commune de Dilala - Kolwezi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>Dilala</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#accueil" class="nav-link active"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="#commune" class="nav-link"><i class="fas fa-university"></i> La Commune</a></li>
+                <li><a href="#services" class="nav-link"><i class="fas fa-concierge-bell"></i> Services</a></li>
+                <li><a href="#actualites" class="nav-link"><i class="far fa-newspaper"></i> Actualités</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sections de pages -->
+    <main class="page-content">
+        <!-- Page Accueil -->
+        <section id="accueil" class="page-section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Commune de <span class="highlight">Dilala</span></h1>
+                    <p class="subtitle">Kolwezi - Province du Lualaba<br>République Démocratique du Congo</p>
+                    <p class="hero-text">Un quartier résidentiel au cœur de la capitale mondiale du cobalt[citation:1][citation:5].</p>
+                    <a href="#commune" class="btn-hero">Découvrir la commune</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Population</h3>
+                        <p>Part de 573 000 habitants[citation:1]</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-mountain"></i>
+                        <h3>Altitude</h3>
+                        <p>1 448 m[citation:1]</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Fondation</h3>
+                        <p>1938[citation:1]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-info">
+                <h2><i class="fas fa-info-circle"></i> À la une</h2>
+                <div class="info-grid">
+                    <div class="info-card alert">
+                        <h3><i class="fas fa-hard-hat"></i> Nouveau Commissariat</h3>
+                        <p>Inauguration officielle du nouveau commissariat de la Police Nationale Congolaise (PNC) à Luilu[citation:3].</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-train"></i> Gare Centrale</h3>
+                        <p>La gare centrale de Kolwezi, située à Dilala, assure des liaisons vers Likasi et Lubumbashi[citation:1].</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-futbol"></i> Stade Manika</h3>
+                        <p>Le stade Manika, infrastructure sportive principale, est situé dans la commune de Dilala[citation:1].</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page La Commune -->
+        <section id="commune" class="page-section">
+            <h2 class="section-title"><i class="fas fa-university"></i> La Commune de Dilala</h2>
+            <div class="about-container">
+                <div class="about-text">
+                    <p>Dilala est l'une des deux communes fondatrices (avec Manika) de la ville de <strong>Kolwezi</strong>, créée en 1938 pour abriter le siège des mines de l'ouest de l'Union Minière du Haut Katanga[citation:1][citation:8].</p>
+                    <p>Kolwezi est aujourd'hui le <strong>chef-lieu de la province du Lualaba</strong> et la <strong>capitale mondiale du cobalt</strong>, jouant un rôle stratégique dans l'économie minière nationale et mondiale[citation:5][citation:8].</p>
+
+                    <h3><i class="fas fa-map-marked-alt"></i> Géographie & Climat</h3>
+                    <p>La commune est située sur les <strong>hauts plateaux du Katanga</strong> à 1 448 m d'altitude[citation:1]. Le climat est de type <strong>tropical de savane (Aw)</strong> avec une saison sèche prononcée de mai à septembre et une saison des pluies d'octobre à avril[citation:1][citation:8].</p>
+
+                    <h3><i class="fas fa-industry"></i> Économie & Patrimoine</h3>
+                    <p>L'économie est dominée par l'<strong>industrie minière</strong> (cuivre, cobalt, uranium). Le tissu urbain de Dilala mêle quartiers résidentiels, équipements publics et héritage de la planification coloniale[citation:8].</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Paysage urbain">
+                    <div class="image-caption">
+                        <p><strong>Maire :</strong> Jacques Masengo (Information associée à Kolwezi)[citation:5]</p>
+                        <p><strong>Superficie de Kolwezi :</strong> 213 km² (inclut Dilala et Manika)[citation:1]</p>
+                        <p><strong>Statut :</strong> Commune urbaine</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Services -->
+        <section id="services" class="page-section">
+            <h2 class="section-title"><i class="fas fa-concierge-bell"></i> Services Municipaux</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-file-contract"></i></div>
+                    <h3>Administration</h3>
+                    <ul>
+                        <li>État civil (naissance, mariage, décès)</li>
+                        <li>Cartes d'identité et passeports</li>
+                        <li>Certificats de résidence</li>
+                        <li>Actes administratifs divers</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Services Sociaux</h3>
+                    <ul>
+                        <li>Aide aux personnes âgées</li>
+                        <li>Support aux familles</li>
+                        <li>Programmes de solidarité</li>
+                        <li>Réinsertion sociale</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>Urbanisme</h3>
+                    <ul>
+                        <li>Permis de construire</li>
+                        <li>Plans d'occupation des sols</li>
+                        <li>Règlementation urbaine</li>
+                        <li>Voirie et aménagement</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Sécurité & Propreté</h3>
+                    <ul>
+                        <li>Police municipale</li>
+                        <li>Éclairage public</li>
+                        <li>Collecte des ordures</li>
+                        <li>Salubrité publique</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="practical-info">
+                <h3><i class="far fa-clock"></i> Informations Pratiques</h3>
+                <div class="info-box">
+                    <p><strong>Adresse présumée de l'Hôtel de Ville :</strong> Avenue principale, Quartier Dilala, Kolwezi</p>
+                    <p><strong>Jours de marché :</strong> Mercredi et Samedi</p>
+                    <p><strong>Transport :</strong> Gare centrale de Kolwezi située à Dilala[citation:1]</p>
+                    <p><strong>Événement récent :</strong> Inauguration du nouveau commissariat PNC à Luilu[citation:3]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Actualités -->
+        <section id="actualites" class="page-section">
+            <h2 class="section-title"><i class="far fa-newspaper"></i> Actualités & Agenda</h2>
+            <div class="news-container">
+                <div class="news-main">
+                    <div class="news-card featured">
+                        <div class="news-date">Mise à jour 2025</div>
+                        <h3>Dilala : Commune en développement</h3>
+                        <p>La commune de Dilala, quartier central de Kolwezi, continue son développement urbain et administratif. Un focus est porté sur l'amélioration des services publics et des infrastructures de base pour ses habitants.</p>
+                        <p>Kolwezi reste un pôle économique majeur grâce à l'industrie minière, avec les défis associés de gestion urbaine et de protection environnementale[citation:5][citation:8].</p>
+                    </div>
+                </div>
+
+                <div class="news-sidebar">
+                    <h3><i class="fas fa-calendar-day"></i> Événements à venir</h3>
+                    <div class="event-item">
+                        <div class="event-date">15 Déc</div>
+                        <div class="event-desc">Réunion du conseil communal</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">20 Déc</div>
+                        <div class="event-desc">Marche de Noël communautaire</div>
+                    </div>
+                    <div class="event-item">
+                        <div class="event-date">10 Janv</div>
+                        <div class="event-desc">Lancement des inscriptions scolaires</div>
+                    </div>
+
+                    <div class="weather-widget">
+                        <h4><i class="fas fa-sun"></i> Climat à Kolwezi</h4>
+                        <p>Saison sèche : Mai à Septembre</p>
+                        <p>Saison des pluies : Octobre à Avril</p>
+                        <p>Température moyenne : 14°C (min) à 27°C (max)[citation:1]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Contact -->
+        <section id="contact" class="page-section">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> Contactez-nous</h2>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <p class="form-intro">Pour toute question ou démarche administrative, utilisez ce formulaire. Votre message sera envoyé à l'administration communale.</p>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name"><i class="far fa-user"></i> Nom & Prénom</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="far fa-envelope"></i> Adresse Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject"><i class="far fa-edit"></i> Objet</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="etat-civil">État Civil</option>
+                                <option value="urbanisme">Urbanisme & Permis</option>
+                                <option value="social">Services Sociaux</option>
+                                <option value="proprete">Propreté & Voirie</option>
+                                <option value="autre">Autre demande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message"><i class="far fa-comment-dots"></i> Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Envoyer le message
+                        </button>
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3><i class="fas fa-map-marker-alt"></i> Coordonnées</h3>
+                    <div class="info-item">
+                        <i class="fas fa-university"></i>
+                        <div>
+                            <strong>Hôtel de Ville de Dilala</strong>
+                            <p>Commune de Dilala, Ville de Kolwezi<br>Province du Lualaba, RDC</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Téléphone</strong>
+                            <p>+243 XX XXX XX XX</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="far fa-clock"></i>
+                        <div>
+                            <strong>Horaires d'ouverture</strong>
+                            <p>Lundi - Vendredi : 7h30 - 15h30</p>
+                        </div>
+                    </div>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p>Carte de localisation de Dilala, Kolwezi</p>
+                        <p class="small">Kolwezi est traversée par la route Transafricaine TAH9 et dispose d'un aéroport[citation:1].</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Commune de Dilala</h4>
+                <p>Une des communes fondatrices de Kolwezi, capitale du Lualaba.</p>
+                <p>Site officiel d'information municipale.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Liens Rapides</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#commune">La Commune</a></li>
+                    <li><a href="#services">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Ressources</h4>
+                <ul>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Formulaire</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 - Commune de Dilala, Kolwezi. Informations basées sur des sources documentaires[citation:1][citation:5][citation:8].</p>
+            <p class="footer-note">Ce site est une démonstration technique. Les informations de contact sont factices.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
