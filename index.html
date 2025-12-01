@@ -3,442 +3,1383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mairie - Commune de Dilala, Kolwezi | Service Public et Information Citoyenne</title>
-    <meta name="description" content="Site officiel d'information de la Commune de Dilala, Kolwezi. Retrouvez les services municipaux, les actualités et les démarches administratives.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js" type="module"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js" type="module"></script>
-    
+    <title>Mairie de Dilala | Ville de Kolwezi - Lualaba</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <style>
-        /* === STYLE EXTERNALISÉ (BONNE PRATIQUE) - Intégré ici pour la démo === */
+        /* ===== VARIABLES & RESET ===== */
         :root {
-            --primary: #1e5a8c; /* Bleu municipal */
-            --primary-dark: #0e3a5c;
-            --secondary: #e6b020; /* Or, couleur des ressources minières */
-            --light: #f8f9fa;
+            --primary: #1a5f7a;
+            --primary-dark: #0d4b63;
+            --primary-light: #57a6c7;
+            --secondary: #ff9f29;
+            --secondary-dark: #e68900;
+            --accent: #2dcddf;
             --dark: #2c3e50;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --gray: #7f8c8d;
-            --gray-light: #ecf0f1;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --radius: 8px;
-            --transition: all 0.3s ease;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
-        /* Base Reset */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--dark);
-            background-color: #f5f7fa;
-            line-height: 1.6;
-            overflow-x: hidden;
-            text-rendering: optimizeLegibility; /* Amélioration de la lisibilité */
-        }
-        h1, h2, h3, h4 { font-family: 'Roboto', sans-serif; font-weight: 600; margin-bottom: 1rem; color: var(--primary-dark); }
-        p { margin-bottom: 1rem; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        .highlight { color: var(--secondary); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; } /* Conteneur réutilisable */
 
-        /* Navigation */
-        .header { 
-            background-color: white; 
-            box-shadow: var(--shadow); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .navbar {
-            padding: 1rem 0;
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: #fefefe;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+        h4 { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 95, 122, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1.2rem 2rem;
         }
+
         .logo {
             display: flex;
             align-items: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-        .logo i { margin-right: 10px; font-size: 2rem; }
-        .nav-menu { display: flex; gap: 2rem; }
-        .nav-link {
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
-            font-weight: 500;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap; /* Empêche le saut de ligne sur les petits écrans */
-        }
-        .nav-link:hover, .nav-link.is-active { background-color: var(--primary); color: white; }
-        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
-
-        /* Main Content & Pages (Remplacement de page-content/page-section par une approche plus sémantique) */
-        .main-content { padding: 2rem 0; }
-        .page-section { padding: 2rem 0; display: none; animation: fadeIn 0.5s ease; }
-        .page-section.is-active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--secondary);
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            gap: 0.8rem;
         }
 
-        /* Hero / Homepage */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 4rem 3rem;
-            border-radius: var(--radius);
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-        /* ... (Reste du CSS similaire, en utilisant is-active, et en standardisant les noms de classes) ... */
-
-        /* Contact Section - Amélioration des Info Items */
-        .contact-info .info-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: flex-start;
-        }
-        .contact-info .info-item i {
             font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-top: 5px;
         }
-        .contact-info .info-item strong {
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-            color: var(--primary-dark);
-        }
-        
-        /* Footer - Ajout de styles pour les liens */
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            transition: var(--transition);
-        }
-        .footer-section a:hover {
+
+        .logo-text span {
             color: var(--secondary);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container { padding: 0 1rem; }
-            .nav-menu {
-                /* ... (Logique mobile menu) ... */
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 10rem;
+            padding-bottom: 5rem;
+            background: linear-gradient(135deg, #f8fdff 0%, #e6f4ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="%231a5f7a" opacity="0.03"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #e6f4ff, #c2e4ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .image-placeholder i {
+            font-size: 8rem;
+            opacity: 0.8;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            background-color: white;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: linear-gradient(135deg, var(--secondary), var(--warning));
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 70%;
+        }
+
+        .about-content h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services {
+            background-color: #f8fdff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-header {
+            padding: 2rem 2rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .service-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .service-list {
+            margin-top: 1.2rem;
+        }
+
+        .service-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+
+        .service-list i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ===== NEWS SECTION ===== */
+        .news-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .news-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(135deg, #57a6c7, #2dcddf);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .news-content {
+            padding: 1.8rem;
+        }
+
+        .news-date {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .news-sidebar {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .events-list {
+            margin-top: 1.5rem;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form-container {
+            background: white;
+            border-radius: var(--radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .info-item i {
+            color: var(--secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .footer-logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            color: white;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 0.7rem;
+        }
+
+        .footer-links h4:after,
+        .footer-contact h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            border-radius: 3px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 1.5rem;
             }
-            /* ... (Reste du CSS responsive) ... */
+            
+            .hero-container,
+            .about-container,
+            .contact-container {
+                gap: 3rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .hero-container,
+            .about-container,
+            .contact-container,
+            .news-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding-top: 8rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 3rem 0;
+                transition: 0.4s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-link {
+                padding: 1.2rem 2rem;
+                width: 100%;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 3.5rem 0;
+            }
+            
+            .hero-stats,
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-main {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .header-container {
+                padding: 1rem 1.5rem;
+            }
+            
+            .hero {
+                padding-top: 7rem;
+                padding-bottom: 3rem;
+            }
+            
+            .btn {
+                padding: 0.9rem 1.8rem;
+                width: 100%;
+            }
+            
+            .contact-form-container,
+            .info-card {
+                padding: 2rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* ===== FIREBASE MESSAGE STYLES ===== */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-weight: 500;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+            display: block;
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            display: block;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.7rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="navbar container">
-            <a href="#accueil" class="logo" aria-label="Accueil Mairie de Dilala">
-                <i class="fas fa-landmark" aria-hidden="true"></i>
-                <span>Dilala</span>
+    <!-- ===== HEADER ===== -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#hero" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="logo-text">Dilala<span>.</span></div>
             </a>
-            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navMenu">
+            
+            <button class="mobile-toggle" id="mobileToggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <nav id="navMenu" class="nav-menu" aria-label="Menu principal">
-                <ul role="list">
-                    <li><a href="#accueil" class="nav-link is-active" data-page="accueil"><i class="fas fa-home" aria-hidden="true"></i> Accueil</a></li>
-                    <li><a href="#commune" class="nav-link" data-page="commune"><i class="fas fa-university" aria-hidden="true"></i> La Commune</a></li>
-                    <li><a href="#services" class="nav-link" data-page="services"><i class="fas fa-concierge-bell" aria-hidden="true"></i> Services</a></li>
-                    <li><a href="#actualites" class="nav-link" data-page="actualites"><i class="far fa-newspaper" aria-hidden="true"></i> Actualités</a></li>
-                    <li><a href="#contact" class="nav-link" data-page="contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
-                </ul>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link active"><i class="fas fa-home"></i> Accueil</a>
+                <a href="#about" class="nav-link"><i class="fas fa-university"></i> La Commune</a>
+                <a href="#services" class="nav-link"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="#news" class="nav-link"><i class="far fa-newspaper"></i> Actualités</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
             </nav>
         </div>
     </header>
 
-    <main class="main-content">
-        <section id="accueil" class="page-section is-active container" role="region" aria-labelledby="accueil-title">
-            <div class="hero">
-                <div class="hero-content">
-                    <h1 id="accueil-title">Commune de <span class="highlight">Dilala</span></h1>
-                    <p class="subtitle">Ville de Kolwezi - Province du Lualaba<br>République Démocratique du Congo</p>
-                    <p class="hero-text">Porte d'entrée administrative et cœur historique de la capitale mondiale du cobalt. Un service public proche des citoyens.</p>
-                    <a href="#contact" class="btn-hero" data-page="contact">Contacter la Mairie</a>
+    <!-- ===== HERO SECTION ===== -->
+    <section id="hero" class="hero section">
+        <div class="container hero-container">
+            <div class="hero-content animate">
+                <h1>Commune de <span class="gradient-text">Dilala</span></h1>
+                <p class="hero-text">Cœur administratif et historique de Kolwezi, capitale mondiale du cobalt. Un service public moderne au service de ses <strong>250,000 habitants</strong>.</p>
+                
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Nous contacter
+                    </a>
+                    <a href="#services" class="btn btn-secondary">
+                        <i class="fas fa-list"></i> Nos services
+                    </a>
                 </div>
-                <div class="hero-stats" role="contentinfo">
+                
+                <div class="hero-stats">
                     <div class="stat-card">
-                        <i class="fas fa-users" aria-hidden="true"></i>
-                        <h3>Population</h3>
-                        <p>≈ 250 000 Habitants</p>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number" data-count="250">0</div>
+                        <div class="stat-label">Milliers d'habitants</div>
                     </div>
+                    
                     <div class="stat-card">
-                        <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
-                        <h3>Superficie</h3>
-                        <p>Environ 85 km²</p>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-city" aria-hidden="true"></i>
-                        <h3>Quartiers</h3>
-                        <p>Luilu, Mobange, etc.</p>
+                        <div class="stat-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="stat-number" data-count="85">0</div>
+                        <div class="stat-label">km² de superficie</div>
                     </div>
                 </div>
             </div>
             
-            <div class="quick-info">
-                <h2><i class="fas fa-info-circle" aria-hidden="true"></i> À la une</h2>
-                <div class="info-grid">
-                    <article class="info-card alert">
-                        <h3><i class="fas fa-hard-hat" aria-hidden="true"></i> Sécurité Renforcée</h3>
-                        <p>Le nouveau commissariat de police de Luilu est pleinement opérationnel pour la sécurité de tous les habitants.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3><i class="fas fa-tint" aria-hidden="true"></i> Projet Eau Potable</h3>
-                        <p>Travaux en cours pour étendre le réseau d'adduction d'eau dans les quartiers périphériques.</p>
-                    </article>
-                    <article class="info-card">
-                        <h3><i class="fas fa-hand-holding-usd" aria-hidden="true"></i> Taxes Locales 2025</h3>
-                        <p>La campagne de recouvrement des taxes et impôts locaux pour l'année 2025 est ouverte.</p>
-                    </article>
+            <div class="hero-image animate" style="animation-delay: 0.2s">
+                <div class="image-placeholder">
+                    <i class="fas fa-city"></i>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="commune" class="page-section container" role="region" aria-labelledby="commune-title">
-            <h2 id="commune-title" class="section-title"><i class="fas fa-university" aria-hidden="true"></i> La Commune de Dilala</h2>
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="section-header animate">
+                <p class="section-subtitle">À propos de nous</p>
+                <h2>La Commune <span class="gradient-text">de Dilala</span></h2>
+            </div>
+            
             <div class="about-container">
-                <div class="about-text">
-                    <p><strong>Dilala</strong> est l'une des deux communes urbaines fondatrices de la <strong>ville de Kolwezi</strong>, créée en 1937-1938 pour héberger le siège administratif des mines de l'Union Minière du Haut-Katanga (UMHK).</p>
-                    <h3><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Géographie & Climat</h3>
-                    <p>Située sur les <strong>hauts plateaux du Katanga</strong> à environ 1 448 m d'altitude. Climat tropical de savane (Aw) avec une saison sèche marquée (mai à septembre) et une saison des pluies (octobre à avril).</p>
-                    <h3><i class="fas fa-industry" aria-hidden="true"></i> Économie & Patrimoine</h3>
-                    <p>Économie dominée par les activités de soutien à l'<strong>industrie minière</strong> (cuivre, cobalt). La commune abrite des administrations, la gare centrale, et un tissu commercial dense. Son patrimoine urbain reflète son histoire planifiée dès l'époque coloniale.</p>
+                <div class="about-image animate">
+                    <div class="image-placeholder about-img">
+                        <i class="fas fa-mountain-city"></i>
+                    </div>
+                    <div class="about-badge">
+                        <h4>Depuis 1937</h4>
+                        <p>Commune fondatrice de Kolwezi</p>
+                    </div>
                 </div>
-                <aside class="about-image">
-                    <div style="background: #ddd; height:300px; border-radius: var(--radius); display:flex; flex-direction: column; align-items:center; justify-content:center; color: var(--gray);" role="img" aria-label="Emplacement de l'Hôtel de Ville de Kolwezi">
-                        <i class="fas fa-mountain-city" style="font-size: 3rem;" aria-hidden="true"></i>
-                        <p>Image : Centre-ville de Kolwezi</p>
+                
+                <div class="about-content animate" style="animation-delay: 0.2s">
+                    <h3>Centre névralgique de Kolwezi</h3>
+                    <p>Dilala est l'une des deux communes fondatrices de la <strong>ville de Kolwezi</strong>, créée en 1937-1938 pour abriter le siège administratif des mines de l'Union Minière du Haut-Katanga.</p>
+                    <p>Aujourd'hui, Kolwezi est le <strong>chef-lieu de la province du Lualaba</strong> et est mondialement reconnue comme la <strong>capitale du cobalt</strong>. Dilala en est le centre administratif, économique et résidentiel.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div>
+                                <h4>Économie minière</h4>
+                                <p>Pôle d'activités liées au cuivre et cobalt</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-train"></i>
+                            </div>
+                            <div>
+                                <h4>Gare Centrale</h4>
+                                <p>Principal nœud ferroviaire de la région</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="image-caption">
-                        <p><strong>Maire de la Ville de Kolwezi :</strong> Jacques Mumba Mputu</p>
-                        <p><strong>Administrateur de la Commune :</strong> Information à confirmer</p>
-                        <p><strong>Superficie (Kolwezi) :</strong> ~ 213 km²</p>
-                    </div>
-                </aside>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="services" class="page-section container" role="region" aria-labelledby="services-title">
-            <h2 id="services-title" class="section-title"><i class="fas fa-concierge-bell" aria-hidden="true"></i> Services Municipaux</h2>
+    <!-- ===== SERVICES SECTION ===== -->
+    <section id="services" class="services section">
+        <div class="container">
+            <div class="section-header animate">
+                <p class="section-subtitle">Ce que nous offrons</p>
+                <h2>Services <span class="gradient-text">Municipaux</span></h2>
+            </div>
+            
             <div class="services-grid">
-                <article class="service-card" aria-labelledby="service-admin-title">
-                    <div class="service-icon"><i class="fas fa-file-contract" aria-hidden="true"></i></div>
-                    <h3 id="service-admin-title">Administration & État Civil</h3>
-                    <ul role="list">
-                        <li>Actes de naissance, mariage, décès</li>
-                        <li>Cartes d'identité et pièces d'état civil</li>
-                        <li>Certificats de résidence et de domicile</li>
-                        <li>Légalisation de documents</li>
-                    </ul>
-                </article>
-                <article class="service-card" aria-labelledby="service-urban-title">
-                    <div class="service-icon"><i class="fas fa-home" aria-hidden="true"></i></div>
-                    <h3 id="service-urban-title">Urbanisme & Voirie</h3>
-                    <ul role="list">
-                        <li>Délivrance des permis de construire</li>
-                        <li>Plans d'occupation des sols</li>
-                        <li>Entretien de la voirie et des espaces publics</li>
-                        <li>Règlementation des constructions</li>
-                    </ul>
-                </article>
-                <article class="service-card" aria-labelledby="service-secu-title">
-                    <div class="service-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
-                    <h3 id="service-secu-title">Sécurité & Salubrité</h3>
-                    <ul role="list">
-                        <li>Coordination avec la Police Nationale (PNC)</li>
-                        <li>Collecte des ordures ménagères</li>
-                        <li>Campagnes de salubrité publique</li>
-                        <li>Gestion des marchés publics</li>
-                    </ul>
-                </article>
-                <article class="service-card" aria-labelledby="service-social-title">
-                    <div class="service-icon"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></div>
-                    <h3 id="service-social-title">Affaires Sociales</h3>
-                    <ul role="list">
-                        <li>Recensement et aide aux vulnérables</li>
-                        <li>Médiation sociale et familiale</li>
-                        <li>Appui aux initiatives communautaires</li>
-                        <li>Coordination des actions humanitaires</li>
-                    </ul>
-                </article>
-            </div>
-            <div class="practical-info" role="contentinfo">
-                <h3><i class="far fa-clock" aria-hidden="true"></i> Informations Pratiques</h3>
-                <div class="info-box">
-                    <p><strong>📍 Adresse présumée :</strong> Avenue de l'UMHK (ou avenue principale), Quartier Dilala, Kolwezi.</p>
-                    <p><strong>📅 Jours et heures d'ouverture :</strong> Lundi à Vendredi, de 7h30 à 15h30.</p>
-                    <p><strong>🚂 Transport :</strong> La Gare Centrale de Kolwezi (SNCC) est située dans la commune de Dilala.</p>
-                    <p><strong>⚠️ Note :</strong> Pour des informations officielles précises (adresse exacte, contacts téléphoniques), veuillez vous rapprocher directement des services de la Mairie de Kolwezi.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="actualites" class="page-section container" role="region" aria-labelledby="news-title">
-            <h2 id="news-title" class="section-title"><i class="far fa-newspaper" aria-hidden="true"></i> Actualités & Agenda</h2>
-            <div class="about-container">
-                <div class="about-text">
-                    <article class="info-card featured">
-                        <div class="news-date">Décembre 2025</div>
-                        <h3>Budget Participatif 2026</h3>
-                        <p>La commune invite les habitants à des réunions de quartier pour discuter des priorités d'investissement pour l'année prochaine (voirie, éclairage, marchés).</p>
-                    </article>
-                    <article class="info-card" style="margin-top: 1.5rem;">
-                        <div class="news-date">Novembre 2025</div>
-                        <h3>Lutte contre l'insalubrité</h3>
-                        <p>Lancement d'une grande campagne "Dilala Propre" avec la distribution de poubelles et la sensibilisation dans les écoles et les marchés.</p>
-                    </article>
-                </div>
-                <aside class="about-image">
-                    <div class="info-box" role="contentinfo">
-                        <h3><i class="fas fa-calendar-day" aria-hidden="true"></i> Prochains Événements</h3>
-                        <ul class="event-list" role="list">
-                            <li class="event-item">
-                                <span class="event-date">15 Déc</span>
-                                <span class="event-desc">Réunion du Conseil Communal</span>
-                            </li>
-                            <li class="event-item">
-                                <span class="event-date">20 Déc</span>
-                                <span class="event-desc">Marche sportive communautaire de Noël</span>
-                            </li>
-                            <li class="event-item">
-                                <span class="event-date">10 Janv</span>
-                                <span class="event-desc">Lancement des inscriptions scolaires</span>
-                            </li>
+                <div class="service-card animate">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3>État Civil</h3>
+                    </div>
+                    <div class="service-content">
+                        <p>Gestion des actes administratifs et documents officiels.</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Actes de naissance</li>
+                            <li><i class="fas fa-check"></i> Mariages & divorces</li>
+                            <li><i class="fas fa-check"></i> Cartes d'identité</li>
+                            <li><i class="fas fa-check"></i> Certificats de résidence</li>
                         </ul>
                     </div>
-                </aside>
+                </div>
+                
+                <div class="service-card animate" style="animation-delay: 0.1s">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Urbanisme</h3>
+                    </div>
+                    <div class="service-content">
+                        <p>Gestion du territoire et autorisations de construction.</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Permis de construire</li>
+                            <li><i class="fas fa-check"></i> Plans d'occupation</li>
+                            <li><i class="fas fa-check"></i> Voirie publique</li>
+                            <li><i class="fas fa-check"></i> Aménagement urbain</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card animate" style="animation-delay: 0.2s">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Sécurité & Propreté</h3>
+                    </div>
+                    <div class="service-content">
+                        <p>Maintien de l'ordre et salubrité publique.</p>
+                        <ul class="service-list">
+                            <li><i class="fas fa-check"></i> Police municipale</li>
+                            <li><i class="fas fa-check"></i> Collecte des ordures</li>
+                            <li><i class="fas fa-check"></i> Salubrité publique</li>
+                            <li><i class="fas fa-check"></i> Marchés communaux</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact" class="page-section container" role="region" aria-labelledby="contact-title">
-            <h2 id="contact-title" class="section-title"><i class="fas fa-envelope" aria-hidden="true"></i> Contactez la Mairie</h2>
+    <!-- ===== NEWS SECTION ===== -->
+    <section id="news" class="section">
+        <div class="container">
+            <div class="section-header animate">
+                <p class="section-subtitle">Restez informés</p>
+                <h2>Actualités & <span class="gradient-text">Agenda</span></h2>
+            </div>
+            
+            <div class="news-container">
+                <div class="news-main">
+                    <div class="news-card animate">
+                        <div class="news-image">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div class="news-content">
+                            <span class="news-date">15 Décembre 2025</span>
+                            <h3>Nouveau Commissariat Opérationnel</h3>
+                            <p>Le commissariat de police de Luilu est désormais pleinement opérationnel avec des effectifs renforcés pour la sécurité des quartiers de Dilala.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card animate" style="animation-delay: 0.1s">
+                        <div class="news-image">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="news-content">
+                            <span class="news-date">10 Décembre 2025</span>
+                            <h3>Projet Eau Potable Étendu</h3>
+                            <p>Les travaux d'extension du réseau d'adduction d'eau dans les quartiers périphériques avancent selon le calendrier prévu.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-sidebar animate" style="animation-delay: 0.2s">
+                    <h3>Événements à venir</h3>
+                    <div class="events-list">
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">20</div>
+                                <div class="event-month">Déc</div>
+                            </div>
+                            <div>
+                                <h4>Conseil Communal</h4>
+                                <p>Session ordinaire du conseil</p>
+                            </div>
+                        </div>
+                        
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">24</div>
+                                <div class="event-month">Déc</div>
+                            </div>
+                            <div>
+                                <h4>Marche de Noël</h4>
+                                <p>Événement communautaire festif</p>
+                            </div>
+                        </div>
+                        
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">10</div>
+                                <div class="event-month">Jan</div>
+                            </div>
+                            <div>
+                                <h4>Rentrée Scolaire</h4>
+                                <p>Lancement des inscriptions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header animate">
+                <p class="section-subtitle">Prenez contact</p>
+                <h2>Contactez la <span class="gradient-text">Mairie</span></h2>
+            </div>
+            
             <div class="contact-container">
-                <div class="contact-form">
-                    <p class="form-intro">Utilisez ce formulaire pour vos demandes administratives, signalements ou requêtes. Votre message sera enregistré et traité par les services concernés.</p>
-                    <form id="contactForm" aria-live="polite"> <div class="form-group">
-                            <label for="name"><i class="far fa-user" aria-hidden="true"></i> Nom & Prénom *</label>
-                            <input type="text" id="name" name="name" required aria-required="true">
-                        </div>
+                <div class="contact-form-container animate">
+                    <p>Utilisez ce formulaire pour vos demandes administratives. Nous vous répondrons dans les plus brefs délais.</p>
+                    
+                    <form id="contactForm">
+                        <div id="formAlert" class="alert" style="display: none;"></div>
+                        
                         <div class="form-group">
-                            <label for="email"><i class="far fa-envelope" aria-hidden="true"></i> Adresse Email *</label>
-                            <input type="email" id="email" name="email" required aria-required="true">
+                            <label for="name" class="form-label">
+                                <i class="fas fa-user"></i> Nom complet
+                            </label>
+                            <input type="text" id="name" class="form-control" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="phone"><i class="fas fa-phone-alt" aria-hidden="true"></i> Téléphone</label>
-                            <input type="tel" id="phone" name="phone">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i> Adresse email
+                            </label>
+                            <input type="email" id="email" class="form-control" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="subject"><i class="far fa-edit" aria-hidden="true"></i> Objet de la demande *</label>
-                            <select id="subject" name="subject" required aria-required="true">
-                                <option value="">-- Choisir --</option>
+                            <label for="subject" class="form-label">
+                                <i class="fas fa-tag"></i> Objet de la demande
+                            </label>
+                            <select id="subject" class="form-control" required>
+                                <option value="">Sélectionnez un sujet</option>
                                 <option value="etat-civil">État Civil</option>
                                 <option value="urbanisme">Urbanisme & Permis</option>
                                 <option value="proprete">Propreté & Voirie</option>
-                                <option value="taxes">Taxes & Impôts locaux</option>
-                                <option value="social">Services Sociaux</option>
-                                <option value="autre">Autre</option>
+                                <option value="social">Affaires Sociales</option>
+                                <option value="autre">Autre demande</option>
                             </select>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="message"><i class="far fa-comment-dots" aria-hidden="true"></i> Votre Message *</label>
-                            <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Détaillez votre demande ici..."></textarea>
+                            <label for="message" class="form-label">
+                                <i class="fas fa-comment"></i> Votre message
+                            </label>
+                            <textarea id="message" class="form-control" required></textarea>
                         </div>
-                        <button type="submit" class="btn-submit" id="submitBtn">
-                            <i class="fas fa-paper-plane" aria-hidden="true"></i> Envoyer le message
+                        
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Envoyer le message
                         </button>
-                        <div id="formMessage" class="form-message" role="alert"></div>
                     </form>
                 </div>
+                
                 <div class="contact-info">
-                    <h3><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Coordonnées</h3>
-                    <div class="info-item">
-                        <i class="fas fa-university" aria-hidden="true"></i>
-                        <div>
-                            <strong>Hôtel de Ville de Dilala</strong>
-                            <p>Commune de Dilala<br>Ville de Kolwezi, Lualaba<br>République Démocratique du Congo</p>
+                    <div class="info-card animate" style="animation-delay: 0.1s">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Adresse</h3>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-item">
+                                <i class="fas fa-university"></i>
+                                <div>
+                                    <strong>Hôtel de Ville de Dilala</strong>
+                                    <p>Commune de Dilala, Kolwezi<br>Lualaba, RDC</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                        <div>
-                            <strong>Téléphone (à confirmer)</strong>
-                            <p>+243 (0) XXX XX XX XX</p>
+                    
+                    <div class="info-card animate" style="animation-delay: 0.2s">
+                        <div class="info-header">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Horaires</h3>
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="far fa-clock" aria-hidden="true"></i>
-                        <div>
-                            <strong>Horaires d'ouverture</strong>
-                            <p>Lundi - Vendredi : 7h30 - 15h30</p>
-                            <p>Samedi : 8h00 - 12h00 (services limités)</p>
+                        <div class="info-content">
+                            <div class="info-item">
+                                <i class="fas fa-calendar-day"></i>
+                                <div>
+                                    <strong>Lundi - Vendredi</strong>
+                                    <p>7h30 - 15h30</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar-week"></i>
+                                <div>
+                                    <strong>Samedi</strong>
+                                    <p>8h00 - 12h00 (services limités)</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="map-placeholder">
-                        <p><i class="fas fa-info-circle" aria-hidden="true"></i> <strong>Pour des contacts précis :</strong></p>
-                        <p class="small">Il est recommandé de vous rendre directement à l'Hôtel de Ville de Kolwezi ou de consulter les informations officielles publiées par la province du Lualaba pour obtenir les coordonnées exactes et à jour de l'administration communale.</p>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer class="footer" role="contentinfo">
-        <div class="footer-content container">
-            <div class="footer-section">
-                <h4>Commune de Dilala</h4>
-                <p>Service Public au cœur de Kolwezi.</p>
-                <p>Ce site est une vitrine d'information. Les données sont fournies à titre indicatif.</p>
-            </div>
-            <nav class="footer-section" aria-labelledby="quick-links-title">
-                <h4 id="quick-links-title">Liens Rapides</h4>
-                <ul role="list">
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#actualites">Actualités</a></li>
-                </ul>
-            </nav>
-             <nav class="footer-section" aria-labelledby="site-links-title">
-                <h4 id="site-links-title">Ville & Province</h4>
-                <ul role="list">
-                    <li><a href="#commune">À propos de Dilala</a></li>
-                    <li><a href="#contact">Nous contacter</a></li>
-                </ul>
-            </nav>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 - Site d'information de la Commune de Dilala, Kolwezi. Développé avec passion.</p>
-            <p class="footer-note">Informations basées sur des données géographiques et administratives documentaires. Pour les démarches officielles, reportez-vous à l'administration.</p>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="footer-logo-text">Dilala<span>.</span></div>
+                    </div>
+                    <p>Commune urbaine de Dilala, centre administratif de Kolwezi. Service public au cœur de la capitale mondiale du cobalt.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="#hero"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> La Commune</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> État Civil</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Urbanisme</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Sécurité</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Affaires Sociales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Dilala, Kolwezi, Lualaba</p>
+                    <p><i class="fas fa-phone"></i> +243 (0) XXX XX XX XX</p>
+                    <p><i class="far fa-clock"></i> Lundi-Vendredi: 7h30-15h30</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 - Commune de Dilala, Kolwezi. Tous droits réservés.</p>
+                <p>Site développé avec les technologies modernes (HTML5, CSS3, JavaScript, Firebase)</p>
+            </div>
         </div>
     </footer>
 
-    <script type="module">
-        // Importation des fonctions spécifiques de Firebase V9
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-
+    <!-- ===== FIREBASE & JAVASCRIPT ===== -->
+    <script>
         // ====================
-        // 1. FIREBASE CONFIGURATION & INITIALIZATION
+        // 1. FIREBASE CONFIGURATION
         // ====================
         const firebaseConfig = {
             apiKey: "AIzaSyD3J0XRt50pJB77ooBC2f_MWYX0Kc2GXZY",
@@ -449,129 +1390,201 @@
             appId: "1:298637105374:web:7c1af2177fd6a1586c4a4f"
         };
 
-        // Utilisation de la syntaxe V9
+        // Initialize Firebase
         let db;
         try {
-            const firebaseApp = initializeApp(firebaseConfig);
-            db = getFirestore(firebaseApp);
-            console.log("✅ Firestore est prêt pour les opérations d'écriture.");
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            console.log("✅ Firebase connecté avec succès!");
         } catch (error) {
-            console.error("❌ Erreur d'initialisation Firebase. Le formulaire de contact ne fonctionnera pas :", error);
+            console.error("❌ Erreur Firebase:", error);
         }
 
         // ====================
-        // 2. WEBSITE NAVIGATION & INTERACTIVITY
+        // 2. WEBSITE FUNCTIONALITY
         // ====================
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const pageSections = document.querySelectorAll('.page-section');
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formMessage = document.getElementById('formMessage');
-
-        // Function to switch pages and update URL/Active State
-        function switchPage(targetId) {
-            navLinks.forEach(link => {
-                link.classList.remove('is-active');
-                if (link.getAttribute('data-page') === targetId) {
-                    link.classList.add('is-active');
-                }
-            });
-            pageSections.forEach(section => {
-                section.classList.remove('is-active');
-                if (section.id === targetId) {
-                    section.classList.add('is-active');
-                }
-            });
-
-            // Close mobile menu
-            if (navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-            if (targetId !== 'accueil') {
-                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        // Event Listeners for Navigation
         document.addEventListener('DOMContentLoaded', function() {
-            // Initial load
-            const hash = window.location.hash.substring(1) || 'accueil';
-            const validPages = ['accueil', 'commune', 'services', 'actualites', 'contact'];
-            if (validPages.includes(hash)) {
-                switchPage(hash);
-            } else {
-                switchPage('accueil');
-            }
-
-            // Navigation link clicks
+            // Elements
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const formAlert = document.getElementById('formAlert');
+            
+            // Mobile Menu Toggle
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileToggle.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking a link
             navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('data-page'); // Utilisation de data-page pour plus de clarté
-                    switchPage(targetId);
-                    history.pushState(null, null, `#${targetId}`);
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 });
             });
-
-            // Mobile menu toggle
-            menuToggle.addEventListener('click', () => {
-                const isExpanded = navMenu.classList.toggle('active');
-                menuToggle.setAttribute('aria-expanded', isExpanded);
+            
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+            
+            // Animated counters
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                const increment = target / 50;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = target + (stat.getAttribute('data-count') === '250' ? 'K+' : '');
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + (stat.getAttribute('data-count') === '250' ? 'K+' : '');
+                    }
+                }, 30);
             });
-
-             // Simple click-away to close mobile menu
-             document.addEventListener('click', (e) => {
-                 if (!navMenu.contains(e.target) && !menuToggle.contains(e.target) && navMenu.classList.contains('active')) {
-                     navMenu.classList.remove('active');
-                     menuToggle.setAttribute('aria-expanded', 'false');
-                 }
-             });
-        });
-
-        // ====================
-        // 3. CONTACT FORM SUBMISSION (FIREBASE V9)
-        // ====================
-        if (contactForm && db) {
-            contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                // 1. Désactiver le bouton & Afficher le message d'attente
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-sync fa-spin"></i> Envoi en cours...';
-                formMessage.style.display = 'none';
-                formMessage.className = 'form-message'; // Reset classes
-
-                const formData = new FormData(contactForm);
-                const data = Object.fromEntries(formData.entries());
-                data.timestamp = new Date(); // Ajouter l'horodatage côté client
-
+            
+            // Contact form handler
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!db) {
+                        showAlert('Firebase non configuré. Vérifiez votre connexion.', 'error');
+                        return;
+                    }
+                    
+                    // Get form data
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value.trim();
+                    
+                    // Validation
+                    if (!name || !email || !subject || !message) {
+                        showAlert('Veuillez remplir tous les champs obligatoires.', 'error');
+                        return;
+                    }
+                    
+                    // Update button state
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<span class="loader"></span> Envoi en cours...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        // Save to Firestore
+                        await db.collection('contacts').add({
+                            name: name,
+                            email: email,
+                            subject: subject,
+                            message: message,
+                            timestamp: new Date().toISOString(),
+                            status: 'new',
+                            ip: await getIP()
+                        });
+                        
+                        // Success
+                        showAlert('✅ Message envoyé avec succès! Nous vous répondrons bientôt.', 'success');
+                        contactForm.reset();
+                        
+                    } catch (error) {
+                        console.error('Firestore error:', error);
+                        showAlert('❌ Erreur d\'envoi. Veuillez réessayer.', 'error');
+                        
+                    } finally {
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            // Show alert function
+            function showAlert(message, type) {
+                formAlert.textContent = message;
+                formAlert.className = `alert alert-${type}`;
+                formAlert.style.display = 'block';
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    formAlert.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Get IP address for tracking
+            async function getIP() {
                 try {
-                    // 2. Écrire dans Firestore V9
-                    const docRef = await addDoc(collection(db, "contactMessages"), data);
-
-                    // 3. Succès
-                    formMessage.classList.add('success');
-                    formMessage.innerHTML = `<i class="fas fa-check-circle"></i> Votre message a été envoyé avec succès (ID: ${docRef.id}) ! Nous vous répondrons rapidement.`;
-                    contactForm.reset();
-                    console.log("Document écrit avec ID: ", docRef.id);
-
-                } catch (error) {
-                    // 4. Échec
-                    console.error("Erreur lors de l'envoi du message à Firestore: ", error);
-                    formMessage.classList.add('error');
-                    formMessage.innerHTML = `<i class="fas fa-times-circle"></i> Une erreur est survenue lors de l'envoi. Veuillez réessayer ou utiliser un autre moyen de contact.`;
-
-                } finally {
-                    // 5. Réactiver le bouton et afficher le message
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
-                    formMessage.style.display = 'block';
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    return data.ip;
+                } catch {
+                    return 'unknown';
                 }
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
-        }
+            
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                } else {
+                    header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.05)';
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                }
+                
+                // Update active nav link
+                const scrollPos = window.scrollY + 100;
+                document.querySelectorAll('.page-section').forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
+                    }
+                });
+            });
+            
+            // Initialize
+            window.dispatchEvent(new Event('scroll'));
+        });
     </script>
 </body>
 </html>
