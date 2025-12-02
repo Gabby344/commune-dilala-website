@@ -3,456 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commune de Dilala | Kolwezi - Portail Citoyen Complet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        /* CSS du site */
-        :root {
-            --primary-color: #007BFF; /* Bleu pour les liens et boutons */
-            --secondary-color: #0056b3; /* Bleu foncé pour le survol */
-            --background-light: #f4f7f6; /* Fond général clair */
-            --text-dark: #333;
-            --text-light: #fff;
-            --gradient-main: linear-gradient(135deg, #007BFF 0%, #00d4ff 100%);
-            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--background-light);
-            scroll-behavior: smooth;
-        }
-
-        /* HEADER & NAVIGATION */
-        header {
-            background: var(--gradient-main);
-            color: var(--text-light);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-light);
-        }
-
-        .logo h1 {
-            font-size: 1.8em;
-            margin: 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 400;
-            padding: 5px 10px;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-        }
-
-        nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .search-bar input {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 20px;
-            margin-left: 20px;
-            outline: none;
-        }
-
-        /* BANNER & CAROUSEL (Carrousel avec dégradé et surveillance au défilement) */
-        .hero {
-            position: relative;
-            height: 60vh;
-            overflow: hidden;
-            background-color: #333;
-        }
-
-        .carousel-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            transition: transform 0.8s ease-in-out;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Dégradé semi-transparent */
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-
-        .hero-content {
-            z-index: 2;
-            color: var(--text-light);
-            text-align: center;
-            padding: 20px;
-        }
-
-        .hero-content h2 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.2em;
-        }
-
-        /* MAIN CONTENT */
-        main {
-            padding: 40px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5em;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--primary-color);
-            display: inline-block;
-            width: 100%;
-        }
-
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: var(--text-light);
-            border-radius: 10px;
-            box-shadow: var(--shadow-light);
-            padding: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 5px solid var(--primary-color); /* Dégradé simple */
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h3 {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-
-        .button {
-            display: inline-block;
-            background: var(--gradient-main);
-            color: var(--text-light);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 15px;
-            transition: opacity 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            opacity: 0.9;
-        }
-
-        /* SECTION VIE LOCALE (Historique et Bourgmestre) */
-        .vie-locale-content {
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
-
-        .history-bio {
-            flex: 2;
-        }
-
-        .bio-card {
-            background: var(--text-light);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-light);
-            margin-top: 30px;
-        }
-
-        .bourgmestre-photo {
-            flex: 1;
-            max-width: 300px;
-        }
-
-        .bourgmestre-photo img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: var(--shadow-light);
-        }
-
-        /* FOOTER */
-        footer {
-            background-color: var(--text-dark);
-            color: var(--background-light);
-            padding: 30px 5%;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        footer nav a {
-            color: var(--background-light);
-            margin: 0 10px;
-            text-decoration: none;
-        }
-
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px 20px;
-            }
-
-            nav ul {
-                margin-top: 10px;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            nav ul li {
-                margin: 5px 0;
-            }
-
-            .search-bar input {
-                margin-top: 10px;
-            }
-
-            .hero {
-                height: 40vh;
-            }
-
-            .hero-content h2 {
-                font-size: 2em;
-            }
-
-            .vie-locale-content {
-                flex-direction: column;
-            }
-
-            .bourgmestre-photo {
-                max-width: 100%;
-                order: -1; /* Mettre la photo avant le texte sur mobile */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <h1>Commune de Dilala</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#information">Actualités</a></li>
-                <li><a href="#demarches">Démarches</a></li>
-                <li><a href="#vieloacale">Vie Locale</a></li>
-                <li><a href="#transparence">Transparence</a></li>
-            </ul>
-        </nav>
-        <div class="search-bar">
-            <input type="search" placeholder="Rechercher...">
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="carousel-container" id="carousel">
-            <div class="carousel-slide" style="background-image: url('placeholder-image-1.jpg');">
-                <div class="overlay"></div>
-                <div class="hero-content">
-                    <h2>Bienvenue à Dilala, Commune en Mouvement</h2>
-                    <p>Votre Portail Citoyen pour l'information et les démarches en ligne.</p>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('placeholder-image-2.jpg');">
-                <div class="overlay"></div>
-                <div class="hero-content">
-                    <h2>Transparence et Service Public</h2>
-                    <p>Accédez aux documents officiels et simplifiez vos démarches administratives.</p>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('placeholder-image-3.jpg');">
-                <div class="overlay"></div>
-                <div class="hero-content">
-                    <h2>Construisons l'Avenir Ensemble</h2>
-                    <p>Participez à la Démocratie Participative de notre commune.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main>
-
-        <section id="information">
-            <h2 class="section-title">📰 Actualités & Informations</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Alerte Sécurité</h3>
-                    <p>Mise à jour des mesures de sécurité dans les quartiers de Dilala suite aux récentes pluies. Restez informés.</p>
-                    <a href="#" class="button">Lire l'alerte</a>
-                </div>
-                <div class="card">
-                    <h3>Travaux de Voirie</h3>
-                    <p>Démarrage des travaux de réhabilitation de l'Avenue de la Paix à partir du 15 décembre. Consultez le plan de déviation.</p>
-                    <a href="#" class="button">Voir les plans</a>
-                </div>
-                <div class="card">
-                    <h3>📞 Contacts Utiles</h3>
-                    <p>Retrouvez l'annuaire complet des services de la commune : Mairie, Police, Hôpitaux et Écoles.</p>
-                    <a href="#" class="button">Accéder à l'annuaire</a>
-                </div>
-            </div>
-            <h2 class="section-title">📅 Agenda des Événements</h2>
-            <p style="text-align: center;">Les événements à venir seront affichés ici (Fête de fin d'année, Consultations publiques, etc.).</p>
-        </section>
-
-        <section id="demarches">
-            <h2 class="section-title">💻 Démarches en Ligne & E-Services</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>État Civil</h3>
-                    <p>Demandez en ligne vos actes de naissance, mariage ou décès. Gain de temps garanti.</p>
-                    <a href="#" class="button">Faire une demande</a>
-                </div>
-                <div class="card">
-                    <h3>Signalement d'Incidents</h3>
-                    <p>Signalez un problème de voirie, d'éclairage ou de propreté directement à nos services.</p>
-                    <a href="#" class="button">Signaler</a>
-                </div>
-                <div class="card">
-                    <h3>💳 Paiement des Taxes/Factures</h3>
-                    <p>Réglez vos factures municipales (eau, assainissement, taxes locales) en toute sécurité.</p>
-                    <a href="#" class="button">Payer en ligne</a>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 30px;">
-                 <p>Pour toutes vos démarches nationales : <a href="https://www.service-public.fr" target="_blank" style="color: var(--primary-color); font-weight: bold;">Lien vers Service-Public.fr (Placeholder)</a></p>
-            </div>
-        </section>
-
-        <section id="vieloacale">
-            <h2 class="section-title">🏡 Notre Commune : Histoire et Gouvernance</h2>
-
-            <div class="vie-locale-content">
-                <div class="bourgmestre-photo">
-                    <img src="placeholder-bourgmestre.jpg" alt="Photo de la Bourgmestre de Dilala">
-                    <div class="bio-card" style="margin-top: 15px;">
-                        <h3>**NOM DE LA BOURGMESTRE (Placeholder)**</h3>
-                        <p>Bourgmestre de la Commune de Dilala</p>
-                        <p>Mandat : 2023 - 2028 (ou période actuelle)</p>
-                    </div>
-                </div>
-
-                <div class="history-bio">
-                    <h3>Historique de la Commune de Dilala</h3>
-                    <p>La commune de Dilala, située au cœur de la ville de Kolwezi, est un pôle historique et économique majeur du Lualaba. Son nom est souvent associé à [Faits historiques marquants - ex: l'exploitation minière, une figure locale importante, ou un événement fondateur].</p>
-                    <p>Créée officiellement en [Année de création], elle a connu une croissance rapide, notamment grâce à [Facteurs de développement - ex: l'arrivée de nouvelles infrastructures, l'expansion démographique]. Dilala est aujourd'hui reconnue pour son dynamisme et son rôle central dans la vie administrative et commerciale de Kolwezi.</p>
-                    <p>Ses quartiers, tels que [Nom de quartiers emblématiques], témoignent de la richesse de son tissu social et de la diversité de ses activités. La municipalité s'engage pour [Projet(s) majeur(s) actuel(s)].</p>
-                    
-                    <h3 style="margin-top: 30px;">Engagement de la Bourgmestre</h3>
-                    <p>**Insérer ici un texte d'engagement fort de la Bourgmestre :**</p>
-                    <blockquote style="border-left: 4px solid var(--primary-color); padding-left: 15px; margin-top: 15px;">
-                        "Notre priorité est d'assurer la transparence de la gestion, d'améliorer l'accès aux services publics et de garantir un environnement sécurisé et prospère pour tous les habitants de Dilala. Ensemble, bâtissons l'avenir de Kolwezi."
-                    </blockquote>
-                </div>
-            </div>
-
-            <h2 class="section-title" style="margin-top: 50px;">🗳️ Démocratie Participative</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Boîte à Idées Citoyenne</h3>
-                    <p>Soumettez vos propositions pour l'amélioration de votre quartier ou des services municipaux.</p>
-                    <a href="#" class="button">Proposer</a>
-                </div>
-                <div class="card">
-                    <h3>Consultations Publiques</h3>
-                    <p>Exprimez-vous sur les grands projets d'aménagement urbain et les futures décisions du Conseil.</p>
-                    <a href="#" class="button">Voir les consultations</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="transparence">
-            <h2 class="section-title">📊 Transparence & Documents Officiels</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Comptes-rendus du Conseil</h3>
-                    <p>Accédez aux procès-verbaux des dernières réunions du Conseil Municipal de Dilala.</p>
-                    <a href="#" class="button">Consulter les PV</a>
-                </div>
-                <div class="card">
-                    <h3>Budgets et Finances</h3>
-                    <p>Consultez le budget de la commune, les rapports financiers et les engagements de dépenses.</p>
-                    <a href="#" class="button">Voir les budgets</a>
-                </div>
-                <div class="card">
-                    <h3>📣 Bulletins Municipaux</h3>
-                    <p>Archive numérique de tous les magazines et bulletins d'information de la commune.</p>
-                    <a href="#" class="button">Télécharger</a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Commune de Dilala - Kolwezi. Tous droits réservés.</p>
-        <nav>
-            <a href="#">Mentions Légales</a> |
-            <a href="#">Plan du Site</a> |
-            <a href="#">Politique de Confidentialité</a>
-        </nav>
-    </footer>
-
+    <title>Commune de Dilala - Kolwezi | Portail Citoyen Complet</title>
+    
+    <!-- Firebase SDK -->
     <script type="module">
-        // Import Firebase Functions
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs,
+            addDoc,
+            serverTimestamp,
+            query,
+            orderBy 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Votre configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyD3J0XRt50pJB77ooBC2f_MWYX0Kc2GXZY",
             authDomain: "projet-commune-dilala.firebaseapp.com",
@@ -462,85 +27,2387 @@
             appId: "1:298637105374:web:7c1af2177fd6a1586c4a4f"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
-        // --- EXEMPLE D'UTILISATION FIREBASE (À DÉVELOPPER) ---
-        // Vous pouvez maintenant utiliser `db` pour lire/écrire des données (Actualités, Démarches, etc.)
-
-        /*
-        // Exemple de lecture d'actualités
-        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
         
-        async function getActualites() {
-             const actualitesCol = collection(db, 'actualites');
-             const actualiteSnapshot = await getDocs(actualitesCol);
-             const actualiteList = actualiteSnapshot.docs.map(doc => doc.data());
-             console.log("Actualités chargées depuis Firestore:", actualiteList);
-             // Ici, vous inséreriez ces données dans la section #information
-        }
-        
-        getActualites();
-        */
-
+        window.firebaseApp = app;
+        window.db = db;
+        window.firestore = {
+            collection,
+            getDocs,
+            addDoc,
+            serverTimestamp,
+            query,
+            orderBy
+        };
     </script>
 
+    <style>
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #2d936c;
+            --accent-color: #ff7e30;
+            --dark-color: #154a63;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+            --text-light: #666;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #1a5f7a 0%, #154a63 100%);
+            --gradient-accent: linear-gradient(135deg, #ff7e30 0%, #ff5e62 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: #fefefe;
+            overflow-x: hidden;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        /* Header amélioré */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            color: var(--dark-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-embleme {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-embleme {
+            transform: rotate(10deg) scale(1.05);
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Navigation améliorée */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 70%;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a.active {
+            color: var(--primary-color);
+            background: rgba(26, 95, 122, 0.05);
+        }
+
+        .cta-button {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 126, 48, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 126, 48, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Section améliorée */
+        .hero {
+            margin-top: 80px;
+            height: 85vh;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 40px 40px;
+        }
+
+        .carousel {
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(21, 74, 99, 0.85) 0%, rgba(26, 95, 122, 0.7) 100%);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            width: 90%;
+            z-index: 2;
+        }
+
+        .carousel-caption h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .carousel-caption p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            z-index: 2;
+        }
+
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .indicator.active::after {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content amélioré */
+        main {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections améliorées */
+        .section {
+            margin: 6rem 0;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Cards améliorées */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .card-meta i {
+            color: var(--accent-color);
+        }
+
+        .card h3 {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(26, 95, 122, 0.2);
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Mayor Section améliorée */
+        .mayor-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            margin: 4rem 0;
+        }
+
+        .mayor-profile {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mayor-img-container {
+            position: relative;
+        }
+
+        .mayor-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+        }
+
+        .mayor-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
+        }
+
+        .mayor-info h3 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .mayor-title {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .mayor-bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .mayor-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .highlight {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .highlight:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .highlight h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Timeline améliorée */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 4rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            margin: 3rem 0;
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: calc(50% + 40px);
+        }
+
+        .timeline-year {
+            position: absolute;
+            top: -15px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -60px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -60px;
+        }
+
+        /* Actualités Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .news-card {
+            grid-column: span 1;
+        }
+
+        .featured-news {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Services améliorés */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-item {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+            transition: var(--transition);
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-item:hover::before {
+            height: 100%;
+            opacity: 0.05;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Transparence améliorée */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .document-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .document-card:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent-color);
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .document-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer amélioré */
+        footer {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 5rem 0 2rem;
+            margin-top: 6rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: var(--gradient-accent);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            max-width: 1400px;
+            margin: 3rem auto 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Scroll Animations améliorées */
+        .section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Progress Bar améliorée */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Back to top amélioré */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
+            animation: none;
+        }
+
+        /* Loading amélioré */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(26, 95, 122, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Stats Counter */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Parallax Section */
+        .parallax-section {
+            height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            margin: 4rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .parallax-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(21, 74, 99, 0.85) 0%, rgba(26, 95, 122, 0.7) 100%);
+        }
+
+        .parallax-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            width: 90%;
+            z-index: 2;
+        }
+
+        /* Responsive amélioré */
+        @media (max-width: 1200px) {
+            .featured-news {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .mayor-profile {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .mayor-img {
+                max-width: 400px;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 80px);
+                left: 80px !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-year,
+            .timeline-item:nth-child(even) .timeline-year {
+                left: -90px;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            nav ul {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-hover);
+                border-radius: 0 0 20px 20px;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+                animation: fadeInUp 0.3s ease;
+            }
+
+            nav a {
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            nav a:last-child {
+                border-bottom: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                height: 70vh;
+                min-height: 500px;
+            }
+
+            .carousel-caption h2 {
+                font-size: 2.2rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mayor-section {
+                padding: 2rem;
+            }
+
+            .hero-cta {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-caption h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .mayor-info h3 {
+                font-size: 2rem;
+            }
+            
+            .card-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+        .mb-4 { margin-bottom: 4rem; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mt-4 { margin-top: 4rem; }
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#accueil" class="logo">
+                <div class="logo-embleme">
+                    DD
+                </div>
+                <div class="logo-text">
+                    <h1>Commune de Dilala</h1>
+                    <span>Kolwezi - Lualaba - RDC</span>
+                </div>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="#accueil" class="active">Accueil</a></li>
+                    <li><a href="#historique">Historique</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#municipalite">Municipalité</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#transparence">Transparence</a></li>
+                    <li><a href="#contact" class="cta-button">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero" id="accueil">
+        <div class="carousel">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active" style="background-image: url('photodelavilleetcommunededilala1.JPG')">
+                <div class="carousel-caption">
+                    <h2>Commune de Dilala</h2>
+                    <p>Un développement harmonieux au service des citoyens depuis 1971</p>
+                    <a href="#actualites" class="hero-cta">Découvrir nos actualités</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide" style="background-image: url('villedekolwezi.JPG')">
+                <div class="carousel-caption">
+                    <h2>Le Cœur de Kolwezi</h2>
+                    <p>Une commune dynamique au carrefour du développement minier et communautaire</p>
+                    <a href="#historique" class="hero-cta">Explorer notre histoire</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-slide" style="background-image: url('photodelavilleetcommunededilala2.JPG')">
+                <div class="carousel-caption">
+                    <h2>Transparence & Participation</h2>
+                    <p>Votre commune s'engage pour une gestion transparente et participative</p>
+                    <a href="#transparence" class="hero-cta">Voir la transparence</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-nav">
+            <button class="carousel-btn prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+            <button class="carousel-btn next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Stats Counter -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-count="150000">0</div>
+                <h3>Habitants</h3>
+                <p>Population active et dynamique</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="12">0</div>
+                <h3>Quartiers</h3>
+                <p>Unités administratives</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="45">0</div>
+                <h3>Années</h3>
+                <p>Au service de la communauté</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="5000">0</div>
+                <h3>Projets</h3>
+                <p>Réalisés depuis 2018</p>
+            </div>
+        </section>
+
+        <!-- Historique -->
+        <section class="section" id="historique">
+            <div class="section-header">
+                <div class="section-icon">🏛️</div>
+                <h2 class="section-title">Histoire de la Commune</h2>
+                <p class="section-subtitle">De sa fondation à son rayonnement actuel, découvrez l'histoire riche de la commune de Dilala au cœur de Kolwezi</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1950-1960</div>
+                    <h3>Naissance de Dilala</h3>
+                    <p>Création des premiers quartiers autour des activités minières de la Gécamines. La commune doit son nom à la rivière Dilala qui traverse son territoire.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1971</div>
+                    <h3>Reconnaissance Officielle</h3>
+                    <p>Dilala est officiellement érigée en commune urbaine de la ville de Kolwezi. Début de l'urbanisation structurée avec création des services municipaux.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1980-1990</div>
+                    <h3>Expansion Urbaine</h3>
+                    <p>Développement des infrastructures de base : écoles, centres de santé, marchés. La population atteint 50,000 habitants avec une croissance économique soutenue.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2010-2020</div>
+                    <h3>Modernisation Accélérée</h3>
+                    <p>Lancement du Plan Directeur d'Urbanisme, réhabilitation complète du réseau routier, électrification des quartiers et amélioration de l'adduction d'eau.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2021-Présent</div>
+                    <h3>Ère Numérique</h3>
+                    <p>Transformation digitale des services municipaux, lancement du Portail Citoyen et mise en place de la gouvernance participative.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parallax Section -->
+        <div class="parallax-section" style="background-image: url('lacommuneimage1.JPG')">
+            <div class="parallax-content">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Une Commune au Service de ses Citoyens</h2>
+                <p style="font-size: 1.2rem;">Depuis 1971, nous bâtissons ensemble l'avenir de Dilala</p>
+            </div>
+        </div>
+
+        <!-- Actualités -->
+        <section class="section" id="actualites">
+            <div class="section-header">
+                <div class="section-icon">📰</div>
+                <h2 class="section-title">Actualités & Événements</h2>
+                <p class="section-subtitle">Suivez en direct les dernières nouvelles, inaugurations et événements marquants de notre commune</p>
+            </div>
+
+            <div class="news-grid">
+                <!-- Article Principal -->
+                <div class="card featured-news">
+                    <div class="card-badge">EXCLUSIF</div>
+                    <img src="presidentdelarepubliqueinaugure.JPG" alt="Inauguration présidentielle" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 15 Novembre 2023</span>
+                            <span><i class="far fa-eye"></i> 2,543 vues</span>
+                        </div>
+                        <h3>Le Président de la République inaugure le Centre Multifonctionnel de Dilala</h3>
+                        <p>En visite historique à Kolwezi, le Président de la République a inauguré le nouveau Centre Multifonctionnel de la commune de Dilala, un projet financé par le gouvernement central et la municipalité. Ce centre moderne comprend une bibliothèque, une salle de conférence, un espace numérique et des bureaux administratifs.</p>
+                        <p>Dans son discours, le Président a salué "le dynamisme exceptionnel de la commune de Dilala sous l'impulsion de sa Bourgmestre, Madame Françoise MANGWEJI, et l'esprit d'innovation qui caractérise cette commune modèle".</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire l'article complet <i class="fas fa-arrow-right"></i></a>
+                            <div class="card-stats">
+                                <span class="stat"><i class="far fa-thumbs-up"></i> 324</span>
+                                <span class="stat"><i class="far fa-comment"></i> 45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autres Articles -->
+                <div class="card news-card">
+                    <div class="card-badge">INAUGURATION</div>
+                    <img src="centreinaugureparpresidentdelarepublique.JPG" alt="Centre inauguré" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 10 Octobre 2023</span>
+                        </div>
+                        <h3>Ouverture du Nouveau Marché Central de Dilala</h3>
+                        <p>Après 18 mois de travaux, le nouveau marché central de Dilala a ouvert ses portes. Avec 500 stands modernes, un système d'assainissement intégré et une station de traitement des déchets, ce marché devient une référence régionale.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card news-card">
+                    <div class="card-badge">VISITE OFFICIELLE</div>
+                    <img src="photodelabourgoumestre2.JPG" alt="Visite de la bourgmestre" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 5 Septembre 2023</span>
+                        </div>
+                        <h3>Madame MANGWEJI visite les chantiers d'urbanisation</h3>
+                        <p>La Bourgmestre a effectué une tournée complète des chantiers en cours dans les 12 quartiers de la commune. Au programme : inspection des travaux de voirie, des installations électriques et des projets d'eau potable.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card news-card">
+                    <div class="card-badge">PROJET SOCIAL</div>
+                    <img src="photodelabourgoumestre3.JPG" alt="Projet social" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 20 Août 2023</span>
+                        </div>
+                        <h3>Lancement du Programme "Lumière pour Tous"</h3>
+                        <p>La commune de Dilala lance un ambitieux programme d'électrification des quartiers périphériques. Objectif : fournir l'électricité à 100% des ménages d'ici 2025 grâce à un partenariat public-privé innovant.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Municipalité -->
+        <section class="section" id="municipalite">
+            <div class="section-header">
+                <div class="section-icon">👑</div>
+                <h2 class="section-title">Notre Bourgmestre</h2>
+                <p class="section-subtitle">Découvrez le parcours exceptionnel de Madame Françoise MANGWEJI, à la tête de la commune de Dilala</p>
+            </div>
+
+            <div class="mayor-section">
+                <div class="mayor-profile">
+                    <div class="mayor-img-container">
+                        <img src="photodelabourgoumestre.JPG" alt="Bourgmestre Françoise MANGWEJI" class="mayor-img">
+                        <div class="mayor-badge">Bourgmestre</div>
+                    </div>
+                    <div class="mayor-info">
+                        <h3>Madame Françoise MANGWEJI</h3>
+                        <span class="mayor-title">Bourgmestre de la Commune de Dilala</span>
+                        
+                        <p class="mayor-bio">
+                            Née à Kolwezi, Madame Françoise MANGWEJI est une femme politique chevronnée et une administratrice publique reconnue. Diplômée de l'Université de Lubumbashi en Sciences Administratives et titulaire d'un Master en Développement Local, elle compte plus de 25 ans d'expérience au service de la collectivité.
+                        </p>
+                        
+                        <p class="mayor-bio">
+                            Élue Bourgmestre de Dilala en 2018 avec un score historique de 78%, elle a immédiatement lancé son programme "Dilala Renaissance" axé sur la modernisation des infrastructures, la digitalisation des services et la participation citoyenne.
+                        </p>
+
+                        <div class="mayor-highlights">
+                            <div class="highlight">
+                                <div class="highlight-icon">🎓</div>
+                                <h4>Formation</h4>
+                                <p>Master en Développement Local</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">⭐</div>
+                                <h4>Expérience</h4>
+                                <p>25 ans de service public</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">🏆</div>
+                                <h4>Récompenses</h4>
+                                <p>Meilleure bourgmestre 2022</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">📈</div>
+                                <h4>Réalisations</h4>
+                                <p>500+ projets réalisés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid mt-4">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Visites Officielles Récentes</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Visite du Ministre de l'Intérieur - Avril 2023
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Tournée des projets sociaux dans 8 quartiers - Mars 2023
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Rencontre avec les opérateurs économiques - Février 2023
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Visite du chantier du Centre Multifonctionnel - Janvier 2023
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Discours & Interventions</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Discours à l'inauguration du Marché Central
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Intervention au Forum National des Collectivités
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Déclaration sur la Modernisation des Services
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Allocution au Conseil Provincial
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Partenariats Stratégiques</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Accord avec la Gécamines pour l'emploi local
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Partenariat avec l'UNICEF pour l'éducation
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Convention avec les opérateurs télécoms
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Collaboration avec les associations locales
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="section" id="services">
+            <div class="section-header">
+                <div class="section-icon">🛠️</div>
+                <h2 class="section-title">Services Municipaux</h2>
+                <p class="section-subtitle">Accédez en ligne à tous les services administratifs de votre commune</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">📋</div>
+                    <h3>État Civil</h3>
+                    <p>Actes de naissance, mariage, décès, certificats de résidence et autres documents officiels.</p>
+                    <a href="#" class="card-btn mt-2">Accéder au service</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Urbanisme</h3>
+                    <p>Permis de construire, autorisations de lotissement, certificats d'urbanisme et plans.</p>
+                    <a href="#" class="card-btn mt-2">Accéder au service</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🚮</div>
+                    <h3>Propreté Urbaine</h3>
+                    <p>Signalement de dépôts sauvages, demande de ramassage, gestion des déchets.</p>
+                    <a href="#" class="card-btn mt-2">Signaler un problème</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💳</div>
+                    <h3>Paiements en Ligne</h3>
+                    <p>Règlement sécurisé des taxes, redevances et autres factures municipales.</p>
+                    <a href="#" class="card-btn mt-2">Payer en ligne</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transparence -->
+        <section class="section" id="transparence">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2 class="section-title">Transparence Administrative</h2>
+                <p class="section-subtitle">Consultez tous les documents officiels et données publiques de la commune</p>
+            </div>
+
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Budget Municipal 2024</h4>
+                        <span class="document-badge">NOUVEAU</span>
+                    </div>
+                    <p>Budget détaillé de la commune avec répartition par secteur et par projet.</p>
+                    <a href="#" class="card-btn mt-2">Télécharger le PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Comptes-rendus du Conseil</h4>
+                        <span class="document-badge">ARCHIVE</span>
+                    </div>
+                    <p>Procès-verbaux et décisions du Conseil Municipal depuis 2018.</p>
+                    <a href="#" class="card-btn mt-2">Consulter en ligne</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Marchés Publics</h4>
+                        <span class="document-badge">EN COURS</span>
+                    </div>
+                    <p>Appels d'offres, avis d'attribution et contrats de la commune.</p>
+                    <a href="#" class="card-btn mt-2">Voir les appels d'offres</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Rapports Annuels</h4>
+                        <span class="document-badge">COMPLET</span>
+                    </div>
+                    <p>Rapports d'activités et bilans annuels depuis 5 ans.</p>
+                    <a href="#" class="card-btn mt-2">Télécharger</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="section-header">
+                <div class="section-icon">📞</div>
+                <h2 class="section-title">Contact & Signalements</h2>
+                <p class="section-subtitle">Nous sommes à votre écoute pour répondre à toutes vos demandes</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Coordonnées de la Mairie</h3>
+                        <ul class="contact-list" style="margin-top: 1.5rem;">
+                            <li><i class="fas fa-map-marker-alt" style="color: var(--accent-color);"></i> Avenue de la Mairie, Commune de Dilala, Kolwezi, Lualaba, RDC</li>
+                            <li><i class="fas fa-phone" style="color: var(--accent-color);"></i> +243 85 123 4567</li>
+                            <li><i class="fas fa-envelope" style="color: var(--accent-color);"></i> mairie.dilala@kolwezi.cd</li>
+                            <li><i class="fas fa-clock" style="color: var(--accent-color);"></i> Lundi-Vendredi: 8h-16h (Samedi: 8h-12h)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Signalement en Ligne</h3>
+                        <form id="reportForm">
+                            <div class="form-group">
+                                <label for="reportType">Type de signalement</label>
+                                <select class="form-control" id="reportType" required>
+                                    <option value="">Sélectionnez...</option>
+                                    <option value="voirie">Problème de voirie</option>
+                                    <option value="proprete">Propreté urbaine</option>
+                                    <option value="eclairage">Éclairage public</option>
+                                    <option value="eau">Eau potable</option>
+                                    <option value="autre">Autre problème</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reportDescription">Description détaillée</label>
+                                <textarea class="form-control" id="reportDescription" required placeholder="Décrivez précisément le problème..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="reportLocation">Lieu exact</label>
+                                <input type="text" class="form-control" id="reportLocation" required placeholder="Quartier, avenue, numéro...">
+                            </div>
+                            <button type="submit" class="card-btn" style="width: 100%; justify-content: center;">
+                                <i class="fas fa-paper-plane"></i> Envoyer le signalement
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Commune de Dilala</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                    Au service des citoyens depuis 1971. Ensemble pour le développement harmonieux de notre commune.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="#actualites"><i class="fas fa-chevron-right"></i> Actualités</a></li>
+                    <li><a href="#municipalite"><i class="fas fa-chevron-right"></i> Municipalité</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#transparence"><i class="fas fa-chevron-right"></i> Transparence</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacts Urgence</h3>
+                <ul class="contact-list">
+                    <li><i class="fas fa-fire"></i> Pompiers: 118</li>
+                    <li><i class="fas fa-shield-alt"></i> Police: 113</li>
+                    <li><i class="fas fa-ambulance"></i> Ambulance: 112</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> Urgence Mairie: 085 765 4321</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                    Recevez les dernières actualités de la commune directement dans votre boîte email.
+                </p>
+                <form style="display: flex; gap: 0.5rem;">
+                    <input type="email" placeholder="Votre email" style="flex: 1; padding: 0.8rem; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: white;">
+                    <button type="submit" style="background: var(--accent-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Commune de Dilala - Kolwezi. Tous droits réservés.</p>
+            <p>Site conforme aux normes RGAA - Dernière mise à jour: Décembre 2023</p>
+        </div>
+    </footer>
+
     <script>
-        // JAVASCRIPT pour les fonctionnalités dynamiques (Carrousel et ScrollSpy)
+        // Variables globales
+        let currentSlide = 0;
+        let autoSlideInterval;
+        let reports = [];
+        let lastScrollY = 0;
+        let scrollDirection = 'down';
+        let scrollThreshold = 100;
+        let userInteracted = false;
 
-        // 1. CAROUSEL DYNAMIQUE
-        const carousel = document.getElementById('carousel');
-        const slides = document.querySelectorAll('.carousel-slide');
-        let currentIndex = 0;
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel();
+            initScrollAnimations();
+            initMobileMenu();
+            initProgressBar();
+            initBackToTop();
+            initFormHandlers();
+            initStatsCounter();
+            initScrollMonitoring();
+            initParallaxEffects();
+            initTimelineAnimation();
+            
+            // Charger les données Firebase
+            setTimeout(() => {
+                loadReportsFromFirebase();
+            }, 1000);
+        });
 
-        function updateCarousel() {
-            carousel.style.transform = `translateX(${-currentIndex * 100}%)`;
+        // Surveillance du défilement améliorée
+        function initScrollMonitoring() {
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                lastScrollY = window.scrollY;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScrollMonitoring();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+                
+                // Détection de la direction
+                scrollDirection = window.scrollY > lastScrollY ? 'down' : 'up';
+                
+                // Détection d'interaction utilisateur
+                if (!userInteracted && window.scrollY > 300) {
+                    userInteracted = true;
+                    console.log('Utilisateur actif - Surveillance activée');
+                }
+            });
+
+            // Surveillance des clics
+            document.addEventListener('click', function() {
+                userInteracted = true;
+            });
+
+            // Surveillance du clavier
+            document.addEventListener('keydown', function() {
+                userInteracted = true;
+            });
         }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel();
+        function handleScrollMonitoring() {
+            // Logique de surveillance du défilement
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            
+            // Vous pouvez ajouter ici des actions basées sur le défilement
+            // Par exemple : analytics, lazy loading, etc.
+            
+            // Exemple : Charger du contenu supplémentaire à 80% de défilement
+            if (scrollPercentage > 80 && !window.contentLoaded) {
+                window.contentLoaded = true;
+                console.log('Chargement de contenu supplémentaire...');
+            }
         }
 
-        // Fait défiler le carrousel toutes les 5 secondes
-        setInterval(nextSlide, 5000);
+        // Carousel amélioré
+        function initCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
 
-        // 2. SURVEILLANCE AU DÉFILEMENT (ScrollSpy) - Ajout d'une ombre à l'en-tête
-        const header = document.querySelector('header');
+            function showSlide(index) {
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.transform = 'translateX(100%)';
+                });
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                currentSlide = (index + slides.length) % slides.length;
+                
+                // Animation d'entrée
+                slides[currentSlide].classList.add('active');
+                slides[currentSlide].style.transform = 'translateX(0)';
+                indicators[currentSlide].classList.add('active');
+                
+                // Mettre à jour les métadonnées
+                document.title = `Commune de Dilala - ${slides[currentSlide].querySelector('h2').textContent}`;
+            }
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                // Ajoute une ombre plus marquée lors du défilement
-                header.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)';
-            } else {
-                // Retour à l'ombre légère en haut de page
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+                resetAutoSlide();
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+                resetAutoSlide();
+            }
+
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(nextSlide, 6000);
+            }
+
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            // Événements
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                    resetAutoSlide();
+                });
+            });
+
+            // Touch events pour mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            document.querySelector('.carousel').addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            document.querySelector('.carousel').addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+            }
+
+            // Démarrer le carousel
+            startAutoSlide();
+            showSlide(0);
+        }
+
+        // Animations au scroll améliorées
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Animation spécifique pour les cards
+                        if (entry.target.classList.contains('card')) {
+                            entry.target.style.animationDelay = `${Math.random() * 0.5}s`;
+                        }
+                    }
+                });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+
+            document.querySelectorAll('.section, .card, .service-item, .document-card').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Timeline animations
+        function initTimelineAnimation() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            timelineItems.forEach(item => observer.observe(item));
+        }
+
+        // Menu mobile amélioré
+        function initMobileMenu() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mainMenu');
+
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('active');
+                menuBtn.innerHTML = menu.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            // Fermer le menu au clic sur un lien
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('active');
+                    menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+
+            // Fermer le menu au clic en dehors
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menu.classList.remove('active');
+                    menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+
+        // Barre de progression améliorée
+        function initProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            
+            window.addEventListener('scroll', () => {
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.scrollY / windowHeight) * 100;
+                progressBar.style.width = scrolled + '%';
+            });
+        }
+
+        // Bouton retour en haut amélioré
+        function initBackToTop() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTopBtn.style.display = 'flex';
+                    backToTopBtn.style.animation = 'fadeInUp 0.3s ease';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Compteurs statistiques
+        function initStatsCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+
+                // Démarrer l'animation quand visible
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+
+                observer.observe(counter);
+            });
+        }
+
+        // Effets parallax
+        function initParallaxEffects() {
+            const parallaxSections = document.querySelectorAll('.parallax-section');
+            
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                
+                parallaxSections.forEach(section => {
+                    const rate = scrolled * -0.5;
+                    section.style.transform = `translate3d(0, ${rate}px, 0)`;
+                });
+            });
+        }
+
+        // Gestion des formulaires améliorée
+        function initFormHandlers() {
+            const reportForm = document.getElementById('reportForm');
+            
+            if (reportForm) {
+                reportForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = reportForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Afficher le chargement
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+                    submitBtn.disabled = true;
+                    
+                    const report = {
+                        type: document.getElementById('reportType').value,
+                        description: document.getElementById('reportDescription').value,
+                        location: document.getElementById('reportLocation').value,
+                        timestamp: new Date().toISOString(),
+                        status: 'nouveau',
+                        userAgent: navigator.userAgent,
+                        screenResolution: `${window.screen.width}x${window.screen.height}`
+                    };
+
+                    try {
+                        // Sauvegarder dans Firebase
+                        const reportId = await saveReportToFirebase(report);
+                        
+                        // Ajouter à la liste locale
+                        reports.push({ id: reportId, ...report });
+                        
+                        // Réinitialiser le formulaire
+                        reportForm.reset();
+                        
+                        // Afficher confirmation
+                        showNotification('Signalement envoyé avec succès! Numéro de suivi: ' + reportId, 'success');
+                        
+                        // Analytics
+                        console.log('Signalement soumis:', {
+                            type: report.type,
+                            location: report.location,
+                            timestamp: report.timestamp
+                        });
+                        
+                    } catch (error) {
+                        console.error('Erreur:', error);
+                        showNotification('Une erreur est survenue. Veuillez réessayer.', 'error');
+                    } finally {
+                        // Restaurer le bouton
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        }
+
+        // Notification système
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            
+            // Styles de la notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#2d936c' : '#ff5e62'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: fadeInUp 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-suppression après 5 secondes
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Firebase Functions améliorées
+        async function saveReportToFirebase(report) {
+            try {
+                if (window.db && window.firestore) {
+                    const docRef = await window.firestore.addDoc(
+                        window.firestore.collection(window.db, 'reports'), 
+                        {
+                            ...report,
+                            createdAt: window.firestore.serverTimestamp(),
+                            ip: await getClientIP()
+                        }
+                    );
+                    console.log('Report saved with ID:', docRef.id);
+                    
+                    // Analytics
+                    trackEvent('report_submitted', {
+                        report_type: report.type,
+                        report_id: docRef.id
+                    });
+                    
+                    return docRef.id;
+                }
+                // Fallback si Firebase n'est pas disponible
+                return 'LOCAL-' + Date.now();
+            } catch (error) {
+                console.error('Error saving report:', error);
+                throw error;
+            }
+        }
+
+        async function loadReportsFromFirebase() {
+            try {
+                if (window.db && window.firestore) {
+                    const q = window.firestore.query(
+                        window.firestore.collection(window.db, 'reports'),
+                        window.firestore.orderBy('createdAt', 'desc')
+                    );
+                    
+                    const querySnapshot = await window.firestore.getDocs(q);
+                    
+                    querySnapshot.forEach((doc) => {
+                        reports.push({ id: doc.id, ...doc.data() });
+                    });
+                    
+                    console.log('Reports loaded:', reports.length);
+                    
+                    // Mettre à jour les statistiques
+                    updateReportStats();
+                }
+            } catch (error) {
+                console.error('Error loading reports:', error);
+            }
+        }
+
+        // Fonction pour obtenir l'IP du client
+        async function getClientIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return 'unknown';
+            }
+        }
+
+        // Analytics
+        function trackEvent(eventName, eventData) {
+            console.log('Event tracked:', eventName, eventData);
+            
+            // Vous pouvez intégrer Google Analytics, Facebook Pixel, etc. ici
+            // Exemple: gtag('event', eventName, eventData);
+        }
+
+        // Mettre à jour les statistiques des signalements
+        function updateReportStats() {
+            const stats = {
+                total: reports.length,
+                today: reports.filter(r => {
+                    const today = new Date().toDateString();
+                    const reportDate = new Date(r.timestamp).toDateString();
+                    return reportDate === today;
+                }).length,
+                pending: reports.filter(r => r.status === 'nouveau').length
+            };
+            
+            // Vous pouvez afficher ces statistiques quelque part
+            console.log('Report Statistics:', stats);
+        }
+
+        // Navigation active
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Mettre à jour la navigation au scroll
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Smooth scrolling amélioré
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Mettre à jour l'URL sans rechargement
+                    history.pushState(null, null, targetId);
+                }
+            });
+        });
+
+        // Préchargement des images
+        function preloadImages() {
+            const images = [
+                'photodelabourgoumestre.JPG',
+                'photodelabourgoumestre2.JPG',
+                'photodelabourgoumestre3.JPG',
+                'photodelavilleetcommunededilala1.JPG',
+                'photodelavilleetcommunededilala2.JPG',
+                'villedekolwezi.JPG',
+                'presidentdelarepubliqueinaugure.JPG',
+                'centreinaugureparpresidentdelarepublique.JPG',
+                'lacommuneimage1.JPG'
+            ];
+            
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
+        // Démarrer le préchargement
+        preloadImages();
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            const loadTime = window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart;
+            console.log('Page load time:', loadTime, 'ms');
+            
+            if (loadTime > 3000) {
+                console.warn('Page load time is high. Consider optimizing images and scripts.');
             }
         });
 
-        // 3. OBSERVER POUR L'ANIMATION (Simple) - Ajout de classe d'animation pour les cartes (UX)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    // entry.target.classList.remove('visible'); // Laissez-le visible une fois apparu
-                }
+        // Service Worker pour PWA (optionnel)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
             });
-        }, {
-            threshold: 0.1 // Déclenche lorsque 10% de l'élément est visible
+        }
+
+        // Gestion de la visibilité de la page
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                console.log('Page is now hidden');
+                // Pause des animations ou vidéos
+            } else {
+                console.log('Page is now visible');
+                // Reprise des animations
+            }
         });
 
-        // Appliquez un style d'animation CSS simple (non inclus ci-dessus, mais voici la structure JS)
-        // Pour que cela fonctionne, vous devrez ajouter ces styles CSS :
-        /*
-        .card { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-        .card.visible { opacity: 1; transform: translateY(0); }
-        */
-        
-        document.querySelectorAll('.card, .history-bio, .bourgmestre-photo').forEach(el => {
-            observer.observe(el);
+        // Error handling global
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            // Vous pouvez envoyer ces erreurs à un service de monitoring
+        });
+
+        // Network status monitoring
+        window.addEventListener('online', function() {
+            showNotification('Vous êtes de nouveau connecté à internet', 'success');
+        });
+
+        window.addEventListener('offline', function() {
+            showNotification('Vous êtes hors ligne. Certaines fonctionnalités peuvent être limitées.', 'warning');
         });
     </script>
 </body>
