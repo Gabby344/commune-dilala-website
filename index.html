@@ -43,7 +43,7 @@
     </script>
 
     <style>
-        /* Reset et base amélioré */
+        /* Reset et base */
         * {
             margin: 0;
             padding: 0;
@@ -54,53 +54,43 @@
             --primary-color: #1a5f7a;
             --secondary-color: #2d936c;
             --accent-color: #ff7e30;
-            --dark-color: #0d3c52;
+            --dark-color: #154a63;
             --light-color: #f8f9fa;
-            --text-color: #2d3748;
-            --text-light: #718096;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            --gradient-primary: linear-gradient(135deg, #1a5f7a 0%, #0d3c52 100%);
+            --text-color: #333;
+            --text-light: #666;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, #1a5f7a 0%, #154a63 100%);
             --gradient-accent: linear-gradient(135deg, #ff7e30 0%, #ff5e62 100%);
-            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.8;
+            line-height: 1.7;
             color: var(--text-color);
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background-color: #fefefe;
             overflow-x: hidden;
         }
 
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 100px;
+            scroll-padding-top: 80px;
         }
 
-        /* Header magnifique */
+        /* Header amélioré */
         header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
             color: var(--dark-color);
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 0.8rem 0;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header-container {
@@ -115,163 +105,101 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .logo:hover {
-            transform: translateY(-2px);
         }
 
         .logo-embleme {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             background: var(--gradient-primary);
-            border-radius: 20px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: white;
             font-weight: bold;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
 
-        .logo-embleme::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .logo:hover .logo-embleme::before {
-            transform: translateX(100%);
+        .logo:hover .logo-embleme {
+            transform: rotate(10deg) scale(1.05);
         }
 
         .logo-text h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
+            font-size: 1.6rem;
+            margin-bottom: 0.25rem;
             color: var(--dark-color);
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-weight: 700;
         }
 
         .logo-text span {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-light);
             font-weight: 500;
-            letter-spacing: 0.5px;
         }
 
-        /* Navigation magnifique */
+        /* Navigation améliorée */
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1rem;
-            align-items: center;
+            gap: 1.5rem;
         }
 
         nav a {
-            color: var(--text-color);
+            color: var(--dark-color);
             text-decoration: none;
             font-weight: 600;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
             transition: var(--transition);
             position: relative;
             font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
         }
 
-        /* Correction du problème de ligne barrée */
-        nav a::before {
+        nav a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
-            height: 3px;
-            background: var(--gradient-accent);
-            border-radius: 3px;
+            height: 2px;
+            background: var(--accent-color);
             transition: var(--transition);
         }
 
-        nav a:hover::before,
-        nav a.active::before {
-            width: 80%;
+        nav a:hover::after,
+        nav a.active::after {
+            width: 70%;
         }
 
         nav a:hover {
             color: var(--primary-color);
-            background: rgba(26, 95, 122, 0.05);
-            transform: translateY(-2px);
         }
 
         nav a.active {
             color: var(--primary-color);
-            background: rgba(26, 95, 122, 0.08);
-            box-shadow: 0 4px 15px rgba(26, 95, 122, 0.1);
-        }
-
-        nav a i {
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-
-        nav a:hover i {
-            transform: scale(1.2);
+            background: rgba(26, 95, 122, 0.05);
         }
 
         .cta-button {
             background: var(--gradient-accent);
             color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 600;
             margin-left: 1rem;
             transition: var(--transition);
-            box-shadow: 0 8px 25px rgba(255, 126, 48, 0.3);
-            border: 2px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
+            box-shadow: 0 4px 15px rgba(255, 126, 48, 0.2);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 126, 48, 0.4);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 126, 48, 0.3);
         }
 
         .mobile-menu-btn {
@@ -279,27 +207,19 @@
             background: none;
             border: none;
             color: var(--dark-color);
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             padding: 0.5rem;
-            transition: var(--transition);
-            z-index: 1001;
         }
 
-        .mobile-menu-btn:hover {
-            color: var(--accent-color);
-            transform: rotate(90deg);
-        }
-
-        /* Hero Section magnifique */
+        /* Hero Section améliorée */
         .hero {
-            margin-top: 100px;
-            height: 90vh;
-            min-height: 700px;
+            margin-top: 80px;
+            height: 85vh;
+            min-height: 600px;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 60px 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 40px 40px;
         }
 
         .carousel {
@@ -314,18 +234,10 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transform: scale(1.1);
-            filter: brightness(0.7);
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-            transform: scale(1);
-            filter: brightness(1);
         }
 
         .carousel-slide::before {
@@ -335,7 +247,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(13, 60, 82, 0.9) 0%, rgba(26, 95, 122, 0.7) 100%);
+            background: linear-gradient(135deg, rgba(21, 74, 99, 0.85) 0%, rgba(26, 95, 122, 0.7) 100%);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
         }
 
         .carousel-caption {
@@ -345,144 +261,100 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
-            max-width: 900px;
+            max-width: 800px;
             width: 90%;
             z-index: 2;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .carousel-caption h2 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
             animation: fadeInUp 1s ease;
-            background: linear-gradient(to right, #ffffff, #ffd700);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
         .carousel-caption p {
-            font-size: 1.5rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.3s both;
-            font-weight: 300;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.2s both;
         }
 
         .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
+            display: inline-block;
             background: var(--gradient-accent);
             color: white;
-            padding: 1.2rem 3rem;
-            border-radius: 15px;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
             transition: var(--transition);
-            animation: fadeInUp 1s ease 0.6s both;
-            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-cta::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-
-        .hero-cta:hover::after {
-            left: 100%;
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
         }
 
         .hero-cta:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(255, 126, 48, 0.5);
-            letter-spacing: 1px;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
         }
 
         .carousel-nav {
             position: absolute;
-            bottom: 60px;
+            bottom: 40px;
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 1rem;
             z-index: 2;
         }
 
         .carousel-btn {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 2rem;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .carousel-btn:hover {
             background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.2) rotate(10deg);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
         }
 
         .carousel-indicators {
             display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            gap: 0.8rem;
         }
 
         .indicator {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             transition: var(--transition);
             position: relative;
-            border: 2px solid transparent;
         }
 
         .indicator::after {
             content: '';
             position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
             border: 2px solid transparent;
             border-radius: 50%;
             transition: var(--transition);
@@ -490,29 +362,25 @@
 
         .indicator.active {
             background: white;
-            transform: scale(1.3);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 20px var(--accent-color);
+            transform: scale(1.2);
         }
 
         .indicator.active::after {
-            border-color: rgba(255, 255, 255, 0.5);
-            animation: pulse 2s infinite;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* Main Content magnifique */
+        /* Main Content amélioré */
         main {
             max-width: 1400px;
-            margin: 5rem auto;
+            margin: 4rem auto;
             padding: 0 2rem;
         }
 
-        /* Sections magnifiques */
+        /* Sections améliorées */
         .section {
-            margin: 8rem 0;
-            padding: 4rem 0;
+            margin: 6rem 0;
+            padding: 3rem 0;
             position: relative;
-            overflow: hidden;
         }
 
         .section::before {
@@ -521,215 +389,154 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 5px;
-            background: var(--gradient-accent);
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(255, 126, 48, 0.3);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-            position: relative;
-        }
-
-        .section-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            display: inline-block;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(26, 95, 122, 0.3));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .section-title {
-            font-size: 3.2rem;
-            color: var(--dark-color);
-            margin-bottom: 1.5rem;
-            font-weight: 900;
-            position: relative;
-            display: inline-block;
-            letter-spacing: -1px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
             width: 100px;
             height: 4px;
             background: var(--gradient-accent);
             border-radius: 2px;
         }
 
-        .section-subtitle {
-            color: var(--text-light);
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
-            font-weight: 400;
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
-        /* Cards magnifiques */
+        .section-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Cards améliorées */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .card {
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             height: 100%;
             position: relative;
             border: 1px solid rgba(0, 0, 0, 0.05);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent, rgba(26, 95, 122, 0.03));
-            border-radius: 25px;
-            z-index: 1;
         }
 
         .card:hover {
-            transform: translateY(-20px) rotateX(5deg);
+            transform: translateY(-15px);
             box-shadow: var(--shadow-hover);
         }
 
         .card-badge {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 20px;
+            right: 20px;
             background: var(--gradient-accent);
             color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
             z-index: 2;
-            box-shadow: 0 8px 20px rgba(255, 126, 48, 0.3);
-            letter-spacing: 0.5px;
         }
 
         .card-image {
             width: 100%;
-            height: 280px;
+            height: 250px;
             object-fit: cover;
             transition: var(--transition);
-            position: relative;
-            z-index: 1;
         }
 
         .card:hover .card-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .card-content {
-            padding: 2.5rem;
-            position: relative;
-            z-index: 2;
-            background: white;
+            padding: 2rem;
         }
 
         .card-meta {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1.2rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
             color: var(--text-light);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .card-meta i {
             color: var(--accent-color);
-            font-size: 1.1rem;
         }
 
         .card h3 {
             color: var(--dark-color);
-            margin-bottom: 1.2rem;
-            font-size: 1.7rem;
-            font-weight: 800;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
             line-height: 1.4;
-            letter-spacing: -0.5px;
         }
 
         .card p {
             color: var(--text-light);
-            margin-bottom: 2rem;
-            line-height: 1.9;
-            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
         }
 
         .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .card-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.5rem;
             background: var(--gradient-primary);
             color: white;
-            padding: 1rem 2.2rem;
-            border-radius: 12px;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 600;
             transition: var(--transition);
             border: none;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(26, 95, 122, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .card-btn:hover::after {
-            left: 100%;
         }
 
         .card-btn:hover {
-            transform: translateX(10px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(26, 95, 122, 0.3);
-            letter-spacing: 0.5px;
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(26, 95, 122, 0.2);
         }
 
         .card-stats {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .stat {
@@ -737,177 +544,111 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--text-light);
-            font-size: 0.95rem;
-            transition: var(--transition);
+            font-size: 0.9rem;
         }
 
-        .stat:hover {
-            color: var(--accent-color);
-            transform: translateY(-2px);
-        }
-
-        /* Mayor Section magnifique */
+        /* Mayor Section améliorée */
         .mayor-section {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 40px;
-            padding: 5rem;
-            margin: 5rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mayor-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: var(--gradient-accent);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 4rem;
+            margin: 4rem 0;
         }
 
         .mayor-profile {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 5rem;
+            gap: 4rem;
             align-items: center;
         }
 
         .mayor-img-container {
             position: relative;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: var(--shadow-hover);
-            transform-style: preserve-3d;
-            perspective: 1000px;
         }
 
         .mayor-img {
             width: 100%;
-            border-radius: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
             transition: var(--transition);
-            transform: translateZ(20px);
-        }
-
-        .mayor-img-container:hover .mayor-img {
-            transform: translateZ(30px) scale(1.05);
         }
 
         .mayor-badge {
             position: absolute;
-            bottom: 25px;
-            right: 25px;
-            background: var(--gradient-gold);
-            color: var(--dark-color);
-            padding: 1rem 2rem;
-            border-radius: 20px;
-            font-weight: 800;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            bottom: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
         }
 
         .mayor-info h3 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--dark-color);
             margin-bottom: 0.5rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, var(--dark-color), var(--primary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-weight: 800;
         }
 
         .mayor-title {
             color: var(--accent-color);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
             display: block;
-            letter-spacing: 0.5px;
         }
 
         .mayor-bio {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            color: var(--text-color);
-            margin-bottom: 2.5rem;
-            font-weight: 400;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
         }
 
         .mayor-highlights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .highlight {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
+            padding: 1.5rem;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .highlight::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient-primary);
+            text-align: center;
             transition: var(--transition);
         }
 
         .highlight:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .highlight:hover::before {
-            height: 100%;
-            opacity: 0.05;
+            transform: translateY(-5px);
         }
 
         .highlight-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(26, 95, 122, 0.3));
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
         }
 
         .highlight h4 {
             color: var(--dark-color);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .highlight p {
             color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
-        /* Timeline magnifique */
+        /* Timeline améliorée */
         .timeline {
             position: relative;
-            max-width: 1200px;
-            margin: 6rem auto;
-            padding: 2rem 0;
+            max-width: 1000px;
+            margin: 4rem auto;
         }
 
         .timeline::before {
@@ -916,74 +657,67 @@
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color), var(--secondary-color));
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
             transform: translateX(-50%);
-            border-radius: 4px;
-            box-shadow: 0 5px 20px rgba(26, 95, 122, 0.3);
+            border-radius: 3px;
         }
 
         .timeline-item {
-            margin: 4rem 0;
+            margin: 3rem 0;
             position: relative;
-            width: calc(50% - 60px);
-            padding: 2.5rem;
+            width: calc(50% - 40px);
+            padding: 2rem;
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: var(--shadow);
             transition: var(--transition);
             opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            transform: translateY(30px);
         }
 
         .timeline-item.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
         .timeline-item:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
         }
 
         .timeline-item:nth-child(odd) {
             left: 0;
-            animation-delay: 0.2s;
         }
 
         .timeline-item:nth-child(even) {
-            left: calc(50% + 60px);
-            animation-delay: 0.4s;
+            left: calc(50% + 40px);
         }
 
         .timeline-year {
             position: absolute;
-            top: -20px;
-            background: var(--gradient-gold);
-            color: var(--dark-color);
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-weight: 900;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            font-size: 1.2rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            z-index: 2;
+            top: -15px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
         }
 
         .timeline-item:nth-child(odd) .timeline-year {
-            right: -80px;
+            right: -60px;
         }
 
         .timeline-item:nth-child(even) .timeline-year {
-            left: -80px;
+            left: -60px;
         }
 
         /* Actualités Section */
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
         }
 
         .news-card {
@@ -994,27 +728,26 @@
             grid-column: span 2;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 2rem;
             align-items: center;
         }
 
-        /* Services magnifiques */
+        /* Services améliorés */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
         .service-item {
             background: white;
-            padding: 3.5rem 2.5rem;
-            border-radius: 25px;
+            padding: 3rem 2rem;
+            border-radius: 20px;
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .service-item::before {
@@ -1023,13 +756,13 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
+            height: 5px;
             background: var(--gradient-accent);
             transition: var(--transition);
         }
 
         .service-item:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
 
@@ -1039,29 +772,58 @@
         }
 
         .service-icon {
-            font-size: 4rem;
-            margin-bottom: 2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(26, 95, 122, 0.3));
-            display: inline-block;
+        }
+
+        /* Transparence améliorée */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .document-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
             transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
         }
 
-        .service-item:hover .service-icon {
-            transform: scale(1.2) rotate(10deg);
+        .document-card:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent-color);
         }
 
-        /* Footer magnifique */
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .document-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer amélioré */
         footer {
             background: var(--gradient-primary);
             color: white;
-            padding: 6rem 0 2rem;
-            margin-top: 8rem;
+            padding: 5rem 0 2rem;
+            margin-top: 6rem;
             position: relative;
-            overflow: hidden;
         }
 
         footer::before {
@@ -1070,29 +832,25 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 15px;
+            height: 10px;
             background: var(--gradient-accent);
-            box-shadow: 0 5px 20px rgba(255, 126, 48, 0.3);
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
             padding: 0 2rem;
-            position: relative;
-            z-index: 2;
         }
 
         .footer-section h3 {
-            font-size: 1.6rem;
-            margin-bottom: 2.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
             position: relative;
-            padding-bottom: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
+            padding-bottom: 1rem;
+            font-weight: 700;
         }
 
         .footer-section h3::after {
@@ -1100,10 +858,9 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 60px;
-            height: 4px;
+            width: 50px;
+            height: 3px;
             background: var(--accent-color);
-            border-radius: 2px;
         }
 
         .footer-links {
@@ -1111,24 +868,21 @@
         }
 
         .footer-links li {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-size: 1.05rem;
-            font-weight: 500;
+            gap: 0.5rem;
         }
 
         .footer-links a:hover {
             color: white;
-            transform: translateX(10px);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transform: translateX(5px);
         }
 
         .contact-list {
@@ -1136,59 +890,54 @@
         }
 
         .contact-list li {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1.05rem;
         }
 
         .social-links {
             display: flex;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .social-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: white;
             text-decoration: none;
             transition: var(--transition);
-            font-size: 1.4rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.2rem;
         }
 
         .social-link:hover {
             background: var(--accent-color);
-            transform: translateY(-5px) scale(1.15);
-            box-shadow: 0 10px 25px rgba(255, 126, 48, 0.4);
-            border-color: transparent;
+            transform: translateY(-3px) scale(1.1);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 4rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 1rem;
-            opacity: 0.9;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
             max-width: 1400px;
-            margin: 4rem auto 0;
-            color: rgba(255, 255, 255, 0.8);
+            margin: 3rem auto 0;
         }
 
         /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -1197,26 +946,21 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 126, 48, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(255, 126, 48, 0.6); }
-        }
-
-        /* Scroll Animations magnifiques */
+        /* Scroll Animations améliorées */
         .section {
             opacity: 0;
-            transform: translateY(80px);
-            transition: opacity 1s ease, transform 1s ease;
+            transform: translateY(60px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .section.visible {
@@ -1224,33 +968,32 @@
             transform: translateY(0);
         }
 
-        /* Progress Bar magnifique */
+        /* Progress Bar améliorée */
         .progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 4px;
             background: transparent;
             z-index: 1001;
         }
 
         .progress-bar {
-            height: 5px;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color), var(--secondary-color));
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             width: 0%;
             transition: width 0.3s ease;
-            border-radius: 0 5px 5px 0;
-            box-shadow: 0 0 20px rgba(255, 126, 48, 0.3);
+            border-radius: 0 2px 2px 0;
         }
 
-        /* Back to top magnifique */
+        /* Back to top amélioré */
         .back-to-top {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 70px;
-            height: 70px;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
             background: var(--gradient-accent);
             color: white;
             border: none;
@@ -1259,85 +1002,84 @@
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             transition: var(--transition);
             z-index: 999;
-            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
-            animation: glow 2s infinite;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(255, 126, 48, 0.3);
+            animation: pulse 2s infinite;
         }
 
         .back-to-top:hover {
-            transform: translateY(-8px) scale(1.15);
-            box-shadow: 0 20px 40px rgba(255, 126, 48, 0.6);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 126, 48, 0.4);
             animation: none;
         }
 
-        /* Stats Counter magnifique */
+        /* Loading amélioré */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(26, 95, 122, 0.1);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Stats Counter */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin: 4rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
         }
 
         .stat-card {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem;
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: var(--gradient-primary);
             transition: var(--transition);
         }
 
         .stat-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
         }
 
-        .stat-card:hover::before {
-            height: 100%;
-            opacity: 0.05;
-        }
-
         .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: 3rem;
+            font-weight: 800;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1rem;
-            display: block;
-            text-shadow: 0 5px 15px rgba(26, 95, 122, 0.2);
+            margin-bottom: 0.5rem;
         }
 
-        /* Parallax Section magnifique */
+        /* Parallax Section */
         .parallax-section {
-            height: 500px;
+            height: 400px;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
-            margin: 5rem 0;
-            border-radius: 30px;
+            margin: 4rem 0;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--shadow-hover);
         }
 
         .parallax-section::before {
@@ -1347,7 +1089,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(13, 60, 82, 0.9) 0%, rgba(26, 95, 122, 0.7) 100%);
+            background: linear-gradient(135deg, rgba(21, 74, 99, 0.85) 0%, rgba(26, 95, 122, 0.7) 100%);
         }
 
         .parallax-content {
@@ -1357,50 +1099,9 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
-            max-width: 900px;
+            max-width: 800px;
             width: 90%;
             z-index: 2;
-            padding: 4rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Formulaires magnifiques */
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--text-color);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1.2rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            background: white;
-            color: var(--text-color);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(26, 95, 122, 0.1);
-            transform: translateY(-2px);
-        }
-
-        textarea.form-control {
-            min-height: 180px;
-            resize: vertical;
         }
 
         /* Responsive amélioré */
@@ -1409,96 +1110,69 @@
                 grid-column: span 1;
                 grid-template-columns: 1fr;
             }
-            
-            .mayor-profile {
-                gap: 4rem;
-            }
         }
 
         @media (max-width: 992px) {
             .mayor-profile {
                 grid-template-columns: 1fr;
-                gap: 4rem;
+                gap: 3rem;
             }
             
             .mayor-img {
-                max-width: 500px;
+                max-width: 400px;
                 margin: 0 auto;
                 display: block;
             }
             
             .timeline::before {
-                left: 40px;
+                left: 30px;
             }
             
             .timeline-item {
-                width: calc(100% - 100px);
-                left: 100px !important;
+                width: calc(100% - 80px);
+                left: 80px !important;
             }
             
             .timeline-item:nth-child(odd) .timeline-year,
             .timeline-item:nth-child(even) .timeline-year {
-                left: -110px;
+                left: -90px;
                 right: auto;
-            }
-            
-            .carousel-caption h2 {
-                font-size: 3rem;
-            }
-            
-            .section-title {
-                font-size: 2.8rem;
             }
         }
 
         @media (max-width: 768px) {
             .header-container {
-                padding: 0 1.5rem;
+                padding: 0 1rem;
             }
 
             nav ul {
                 display: none;
                 position: fixed;
-                top: 0;
+                top: 80px;
                 left: 0;
                 right: 0;
-                bottom: 0;
-                background: rgba(255, 255, 255, 0.98);
+                background: white;
                 flex-direction: column;
-                padding: 6rem 2rem 2rem;
+                padding: 2rem;
                 box-shadow: var(--shadow-hover);
+                border-radius: 0 0 20px 20px;
                 gap: 0;
-                z-index: 999;
-                overflow-y: auto;
-                backdrop-filter: blur(20px);
             }
 
             nav ul.active {
                 display: flex;
-                animation: fadeInUp 0.5s ease;
+                animation: fadeInUp 0.3s ease;
             }
 
             nav a {
-                padding: 1.5rem;
+                padding: 1rem;
                 width: 100%;
-                text-align: left;
+                text-align: center;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-                font-size: 1.2rem;
-                border-radius: 0;
-                justify-content: flex-start;
             }
 
             nav a:last-child {
                 border-bottom: none;
-            }
-
-            nav a::before {
-                display: none;
-            }
-
-            nav a.active {
-                background: rgba(26, 95, 122, 0.1);
-                border-left: 5px solid var(--accent-color);
             }
 
             .mobile-menu-btn {
@@ -1506,14 +1180,8 @@
             }
 
             .hero {
-                height: 80vh;
-                min-height: 600px;
-                margin-top: 90px;
-            }
-
-            .carousel-caption {
-                padding: 2rem;
-                border-radius: 20px;
+                height: 70vh;
+                min-height: 500px;
             }
 
             .carousel-caption h2 {
@@ -1521,7 +1189,7 @@
             }
 
             .carousel-caption p {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .section-title {
@@ -1533,23 +1201,12 @@
             }
 
             .mayor-section {
-                padding: 3rem 2rem;
-                border-radius: 30px;
+                padding: 2rem;
             }
 
             .hero-cta {
-                padding: 1rem 2rem;
-                font-size: 1.1rem;
-            }
-            
-            .carousel-nav {
-                bottom: 30px;
-            }
-            
-            .carousel-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 1.8rem;
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
             }
         }
 
@@ -1563,23 +1220,11 @@
             }
             
             .mayor-info h3 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             
             .card-content {
-                padding: 2rem;
-            }
-            
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .featured-news {
-                grid-template-columns: 1fr;
-            }
-            
-            .parallax-content {
-                padding: 2rem;
+                padding: 1.5rem;
             }
         }
 
@@ -1602,44 +1247,10 @@
         .float-animation {
             animation: float 3s ease-in-out infinite;
         }
-        
-        /* Notification styles */
-        .notification {
-            position: fixed;
-            top: 120px;
-            right: 30px;
-            padding: 1.5rem 2rem;
-            border-radius: 15px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            z-index: 10000;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.5s ease;
-            max-width: 400px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .notification-success {
-            background: linear-gradient(135deg, #2d936c 0%, #1e7c56 100%);
-        }
-        
-        .notification-error {
-            background: linear-gradient(135deg, #ff5e62 0%, #ff3b3f 100%);
-        }
-        
-        .notification-warning {
-            background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
-        }
     </style>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Progress Bar -->
@@ -1653,11 +1264,11 @@
     </button>
 
     <!-- Header -->
-    <header id="mainHeader">
+    <header>
         <div class="header-container">
             <a href="#accueil" class="logo">
                 <div class="logo-embleme">
-                    <i class="fas fa-landmark"></i>
+                    DD
                 </div>
                 <div class="logo-text">
                     <h1>Commune de Dilala</h1>
@@ -1669,13 +1280,13 @@
             </button>
             <nav>
                 <ul id="mainMenu">
-                    <li><a href="#accueil" class="active"><i class="fas fa-home"></i> Accueil</a></li>
-                    <li><a href="#historique"><i class="fas fa-history"></i> Historique</a></li>
-                    <li><a href="#actualites"><i class="fas fa-newspaper"></i> Actualités</a></li>
-                    <li><a href="#municipalite"><i class="fas fa-user-tie"></i> Municipalité</a></li>
-                    <li><a href="#services"><i class="fas fa-concierge-bell"></i> Services</a></li>
-                    <li><a href="#transparence"><i class="fas fa-chart-line"></i> Transparence</a></li>
-                    <li><a href="#contact" class="cta-button"><i class="fas fa-phone-alt"></i> Contact</a></li>
+                    <li><a href="#accueil" class="active">Accueil</a></li>
+                    <li><a href="#historique">Historique</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#municipalite">Municipalité</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#transparence">Transparence</a></li>
+                    <li><a href="#contact" class="cta-button">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -1689,10 +1300,7 @@
                 <div class="carousel-caption">
                     <h2>Commune de Dilala</h2>
                     <p>Un développement harmonieux au service des citoyens depuis 1971</p>
-                    <a href="#actualites" class="hero-cta">
-                        <i class="fas fa-newspaper"></i>
-                        Découvrir nos actualités
-                    </a>
+                    <a href="#actualites" class="hero-cta">Découvrir nos actualités</a>
                 </div>
             </div>
             <!-- Slide 2 -->
@@ -1700,10 +1308,7 @@
                 <div class="carousel-caption">
                     <h2>Le Cœur de Kolwezi</h2>
                     <p>Une commune dynamique au carrefour du développement minier et communautaire</p>
-                    <a href="#historique" class="hero-cta">
-                        <i class="fas fa-history"></i>
-                        Explorer notre histoire
-                    </a>
+                    <a href="#historique" class="hero-cta">Explorer notre histoire</a>
                 </div>
             </div>
             <!-- Slide 3 -->
@@ -1711,10 +1316,7 @@
                 <div class="carousel-caption">
                     <h2>Transparence & Participation</h2>
                     <p>Votre commune s'engage pour une gestion transparente et participative</p>
-                    <a href="#transparence" class="hero-cta">
-                        <i class="fas fa-chart-line"></i>
-                        Voir la transparence
-                    </a>
+                    <a href="#transparence" class="hero-cta">Voir la transparence</a>
                 </div>
             </div>
         </div>
@@ -1799,20 +1401,402 @@
         <!-- Parallax Section -->
         <div class="parallax-section" style="background-image: url('lacommuneimage1.JPG')">
             <div class="parallax-content">
-                <h2 style="font-size: 2.8rem; margin-bottom: 1.5rem;">Une Commune au Service de ses Citoyens</h2>
-                <p style="font-size: 1.3rem;">Depuis 1971, nous bâtissons ensemble l'avenir de Dilala</p>
-                <a href="#contact" class="hero-cta mt-3" style="display: inline-flex;">
-                    <i class="fas fa-handshake"></i>
-                    Rejoignez-nous
-                </a>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Une Commune au Service de ses Citoyens</h2>
+                <p style="font-size: 1.2rem;">Depuis 1971, nous bâtissons ensemble l'avenir de Dilala</p>
             </div>
         </div>
 
-        <!-- Le code continue exactement comme avant pour le reste du contenu... -->
-        <!-- Pour respecter les limites de caractères, je garde le reste du code identique à ce que vous aviez -->
-        <!-- Seul le CSS a été modifié pour corriger le menu et améliorer le design -->
+        <!-- Actualités -->
+        <section class="section" id="actualites">
+            <div class="section-header">
+                <div class="section-icon">📰</div>
+                <h2 class="section-title">Actualités & Événements</h2>
+                <p class="section-subtitle">Suivez en direct les dernières nouvelles, inaugurations et événements marquants de notre commune</p>
+            </div>
 
+            <div class="news-grid">
+                <!-- Article Principal -->
+                <div class="card featured-news">
+                    <div class="card-badge">EXCLUSIF</div>
+                    <img src="presidentdelarepubliqueinaugure.JPG" alt="Inauguration présidentielle" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 15 Novembre 2023</span>
+                            <span><i class="far fa-eye"></i> 2,543 vues</span>
+                        </div>
+                        <h3>Le Président de la République inaugure le Centre Multifonctionnel de Dilala</h3>
+                        <p>En visite historique à Kolwezi, le Président de la République a inauguré le nouveau Centre Multifonctionnel de la commune de Dilala, un projet financé par le gouvernement central et la municipalité. Ce centre moderne comprend une bibliothèque, une salle de conférence, un espace numérique et des bureaux administratifs.</p>
+                        <p>Dans son discours, le Président a salué "le dynamisme exceptionnel de la commune de Dilala sous l'impulsion de sa Bourgmestre, Madame Françoise MANGWEJI, et l'esprit d'innovation qui caractérise cette commune modèle".</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire l'article complet <i class="fas fa-arrow-right"></i></a>
+                            <div class="card-stats">
+                                <span class="stat"><i class="far fa-thumbs-up"></i> 324</span>
+                                <span class="stat"><i class="far fa-comment"></i> 45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autres Articles -->
+                <div class="card news-card">
+                    <div class="card-badge">INAUGURATION</div>
+                    <img src="centreinaugureparpresidentdelarepublique.JPG" alt="Centre inauguré" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 10 Octobre 2023</span>
+                        </div>
+                        <h3>Ouverture du Nouveau Marché Central de Dilala</h3>
+                        <p>Après 18 mois de travaux, le nouveau marché central de Dilala a ouvert ses portes. Avec 500 stands modernes, un système d'assainissement intégré et une station de traitement des déchets, ce marché devient une référence régionale.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card news-card">
+                    <div class="card-badge">VISITE OFFICIELLE</div>
+                    <img src="photodelabourgoumestre2.JPG" alt="Visite de la bourgmestre" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 5 Septembre 2023</span>
+                        </div>
+                        <h3>Madame MANGWEJI visite les chantiers d'urbanisation</h3>
+                        <p>La Bourgmestre a effectué une tournée complète des chantiers en cours dans les 12 quartiers de la commune. Au programme : inspection des travaux de voirie, des installations électriques et des projets d'eau potable.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card news-card">
+                    <div class="card-badge">PROJET SOCIAL</div>
+                    <img src="photodelabourgoumestre3.JPG" alt="Projet social" class="card-image">
+                    <div class="card-content">
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar"></i> 20 Août 2023</span>
+                        </div>
+                        <h3>Lancement du Programme "Lumière pour Tous"</h3>
+                        <p>La commune de Dilala lance un ambitieux programme d'électrification des quartiers périphériques. Objectif : fournir l'électricité à 100% des ménages d'ici 2025 grâce à un partenariat public-privé innovant.</p>
+                        <div class="card-footer">
+                            <a href="#" class="card-btn">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Municipalité -->
+        <section class="section" id="municipalite">
+            <div class="section-header">
+                <div class="section-icon">👑</div>
+                <h2 class="section-title">Notre Bourgmestre</h2>
+                <p class="section-subtitle">Découvrez le parcours exceptionnel de Madame Françoise MANGWEJI, à la tête de la commune de Dilala</p>
+            </div>
+
+            <div class="mayor-section">
+                <div class="mayor-profile">
+                    <div class="mayor-img-container">
+                        <img src="photodelabourgoumestre.JPG" alt="Bourgmestre Françoise MANGWEJI" class="mayor-img">
+                        <div class="mayor-badge">Bourgmestre</div>
+                    </div>
+                    <div class="mayor-info">
+                        <h3>Madame Françoise MANGWEJI</h3>
+                        <span class="mayor-title">Bourgmestre de la Commune de Dilala</span>
+                        
+                        <p class="mayor-bio">
+                            Née à Kolwezi, Madame Françoise MANGWEJI est une femme politique chevronnée et une administratrice publique reconnue. Diplômée de l'Université de Lubumbashi en Sciences Administratives et titulaire d'un Master en Développement Local, elle compte plus de 25 ans d'expérience au service de la collectivité.
+                        </p>
+                        
+                        <p class="mayor-bio">
+                            Élue Bourgmestre de Dilala en 2018 avec un score historique de 78%, elle a immédiatement lancé son programme "Dilala Renaissance" axé sur la modernisation des infrastructures, la digitalisation des services et la participation citoyenne.
+                        </p>
+
+                        <div class="mayor-highlights">
+                            <div class="highlight">
+                                <div class="highlight-icon">🎓</div>
+                                <h4>Formation</h4>
+                                <p>Master en Développement Local</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">⭐</div>
+                                <h4>Expérience</h4>
+                                <p>25 ans de service public</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">🏆</div>
+                                <h4>Récompenses</h4>
+                                <p>Meilleure bourgmestre 2022</p>
+                            </div>
+                            <div class="highlight">
+                                <div class="highlight-icon">📈</div>
+                                <h4>Réalisations</h4>
+                                <p>500+ projets réalisés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards-grid mt-4">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Visites Officielles Récentes</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Visite du Ministre de l'Intérieur - Avril 2023
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Tournée des projets sociaux dans 8 quartiers - Mars 2023
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Rencontre avec les opérateurs économiques - Février 2023
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-check" style="color: var(--secondary-color); position: absolute; left: 0;"></i>
+                                Visite du chantier du Centre Multifonctionnel - Janvier 2023
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Discours & Interventions</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Discours à l'inauguration du Marché Central
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Intervention au Forum National des Collectivités
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Déclaration sur la Modernisation des Services
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-volume-up" style="color: var(--accent-color); position: absolute; left: 0;"></i>
+                                Allocution au Conseil Provincial
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Partenariats Stratégiques</h3>
+                        <ul style="color: var(--text-light); margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Accord avec la Gécamines pour l'emploi local
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Partenariat avec l'UNICEF pour l'éducation
+                            </li>
+                            <li style="margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Convention avec les opérateurs télécoms
+                            </li>
+                            <li style="padding-left: 1.5rem; position: relative;">
+                                <i class="fas fa-handshake" style="color: var(--primary-color); position: absolute; left: 0;"></i>
+                                Collaboration avec les associations locales
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="section" id="services">
+            <div class="section-header">
+                <div class="section-icon">🛠️</div>
+                <h2 class="section-title">Services Municipaux</h2>
+                <p class="section-subtitle">Accédez en ligne à tous les services administratifs de votre commune</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">📋</div>
+                    <h3>État Civil</h3>
+                    <p>Actes de naissance, mariage, décès, certificats de résidence et autres documents officiels.</p>
+                    <a href="#" class="card-btn mt-2">Accéder au service</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Urbanisme</h3>
+                    <p>Permis de construire, autorisations de lotissement, certificats d'urbanisme et plans.</p>
+                    <a href="#" class="card-btn mt-2">Accéder au service</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🚮</div>
+                    <h3>Propreté Urbaine</h3>
+                    <p>Signalement de dépôts sauvages, demande de ramassage, gestion des déchets.</p>
+                    <a href="#" class="card-btn mt-2">Signaler un problème</a>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💳</div>
+                    <h3>Paiements en Ligne</h3>
+                    <p>Règlement sécurisé des taxes, redevances et autres factures municipales.</p>
+                    <a href="#" class="card-btn mt-2">Payer en ligne</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transparence -->
+        <section class="section" id="transparence">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2 class="section-title">Transparence Administrative</h2>
+                <p class="section-subtitle">Consultez tous les documents officiels et données publiques de la commune</p>
+            </div>
+
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Budget Municipal 2024</h4>
+                        <span class="document-badge">NOUVEAU</span>
+                    </div>
+                    <p>Budget détaillé de la commune avec répartition par secteur et par projet.</p>
+                    <a href="#" class="card-btn mt-2">Télécharger le PDF</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Comptes-rendus du Conseil</h4>
+                        <span class="document-badge">ARCHIVE</span>
+                    </div>
+                    <p>Procès-verbaux et décisions du Conseil Municipal depuis 2018.</p>
+                    <a href="#" class="card-btn mt-2">Consulter en ligne</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Marchés Publics</h4>
+                        <span class="document-badge">EN COURS</span>
+                    </div>
+                    <p>Appels d'offres, avis d'attribution et contrats de la commune.</p>
+                    <a href="#" class="card-btn mt-2">Voir les appels d'offres</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-header">
+                        <h4>Rapports Annuels</h4>
+                        <span class="document-badge">COMPLET</span>
+                    </div>
+                    <p>Rapports d'activités et bilans annuels depuis 5 ans.</p>
+                    <a href="#" class="card-btn mt-2">Télécharger</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="section-header">
+                <div class="section-icon">📞</div>
+                <h2 class="section-title">Contact & Signalements</h2>
+                <p class="section-subtitle">Nous sommes à votre écoute pour répondre à toutes vos demandes</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Coordonnées de la Mairie</h3>
+                        <ul class="contact-list" style="margin-top: 1.5rem;">
+                            <li><i class="fas fa-map-marker-alt" style="color: var(--accent-color);"></i> Avenue de la Mairie, Commune de Dilala, Kolwezi, Lualaba, RDC</li>
+                            <li><i class="fas fa-phone" style="color: var(--accent-color);"></i> +243 85 123 4567</li>
+                            <li><i class="fas fa-envelope" style="color: var(--accent-color);"></i> mairie.dilala@kolwezi.cd</li>
+                            <li><i class="fas fa-clock" style="color: var(--accent-color);"></i> Lundi-Vendredi: 8h-16h (Samedi: 8h-12h)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Signalement en Ligne</h3>
+                        <form id="reportForm">
+                            <div class="form-group">
+                                <label for="reportType">Type de signalement</label>
+                                <select class="form-control" id="reportType" required>
+                                    <option value="">Sélectionnez...</option>
+                                    <option value="voirie">Problème de voirie</option>
+                                    <option value="proprete">Propreté urbaine</option>
+                                    <option value="eclairage">Éclairage public</option>
+                                    <option value="eau">Eau potable</option>
+                                    <option value="autre">Autre problème</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reportDescription">Description détaillée</label>
+                                <textarea class="form-control" id="reportDescription" required placeholder="Décrivez précisément le problème..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="reportLocation">Lieu exact</label>
+                                <input type="text" class="form-control" id="reportLocation" required placeholder="Quartier, avenue, numéro...">
+                            </div>
+                            <button type="submit" class="card-btn" style="width: 100%; justify-content: center;">
+                                <i class="fas fa-paper-plane"></i> Envoyer le signalement
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Commune de Dilala</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                    Au service des citoyens depuis 1971. Ensemble pour le développement harmonieux de notre commune.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="#actualites"><i class="fas fa-chevron-right"></i> Actualités</a></li>
+                    <li><a href="#municipalite"><i class="fas fa-chevron-right"></i> Municipalité</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#transparence"><i class="fas fa-chevron-right"></i> Transparence</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contacts Urgence</h3>
+                <ul class="contact-list">
+                    <li><i class="fas fa-fire"></i> Pompiers: 118</li>
+                    <li><i class="fas fa-shield-alt"></i> Police: 113</li>
+                    <li><i class="fas fa-ambulance"></i> Ambulance: 112</li>
+                    <li><i class="fas fa-exclamation-triangle"></i> Urgence Mairie: 085 765 4321</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                    Recevez les dernières actualités de la commune directement dans votre boîte email.
+                </p>
+                <form style="display: flex; gap: 0.5rem;">
+                    <input type="email" placeholder="Votre email" style="flex: 1; padding: 0.8rem; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: white;">
+                    <button type="submit" style="background: var(--accent-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 Commune de Dilala - Kolwezi. Tous droits réservés.</p>
+            <p>Site conforme aux normes RGAA - Dernière mise à jour: Décembre 2023</p>
+        </div>
+    </footer>
 
     <script>
         // Variables globales
@@ -1821,6 +1805,7 @@
         let reports = [];
         let lastScrollY = 0;
         let scrollDirection = 'down';
+        let scrollThreshold = 100;
         let userInteracted = false;
 
         // Initialisation
@@ -1840,23 +1825,7 @@
             setTimeout(() => {
                 loadReportsFromFirebase();
             }, 1000);
-            
-            // Header scroll effect
-            initHeaderScroll();
         });
-
-        // Header scroll effect
-        function initHeaderScroll() {
-            const header = document.getElementById('mainHeader');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-        }
 
         // Surveillance du défilement améliorée
         function initScrollMonitoring() {
@@ -1918,6 +1887,7 @@
             function showSlide(index) {
                 slides.forEach(slide => {
                     slide.classList.remove('active');
+                    slide.style.transform = 'translateX(100%)';
                 });
                 indicators.forEach(indicator => indicator.classList.remove('active'));
                 
@@ -1925,6 +1895,7 @@
                 
                 // Animation d'entrée
                 slides[currentSlide].classList.add('active');
+                slides[currentSlide].style.transform = 'translateX(0)';
                 indicators[currentSlide].classList.add('active');
                 
                 // Mettre à jour les métadonnées
@@ -2031,7 +2002,7 @@
             timelineItems.forEach(item => observer.observe(item));
         }
 
-        // Menu mobile amélioré - CORRIGÉ
+        // Menu mobile amélioré
         function initMobileMenu() {
             const menuBtn = document.getElementById('mobileMenuBtn');
             const menu = document.getElementById('mainMenu');
@@ -2191,21 +2162,32 @@
             }
         }
 
-        // Notification système améliorée
+        // Notification système
         function showNotification(message, type = 'info') {
-            // Supprimer les notifications existantes
-            document.querySelectorAll('.notification').forEach(notification => {
-                notification.remove();
-            });
-
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
             notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
                 <span>${message}</span>
-                <button onclick="this.parentElement.remove()" style="background: transparent; border: none; color: white; cursor: pointer; margin-left: auto;">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            
+            // Styles de la notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#2d936c' : '#ff5e62'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: fadeInUp 0.3s ease;
+                max-width: 400px;
             `;
             
             document.body.appendChild(notification);
@@ -2213,14 +2195,13 @@
             // Auto-suppression après 5 secondes
             setTimeout(() => {
                 if (notification.parentElement) {
-                    notification.style.opacity = '0';
-                    notification.style.transform = 'translateX(100px)';
+                    notification.style.animation = 'fadeOut 0.3s ease';
                     setTimeout(() => notification.remove(), 300);
                 }
             }, 5000);
         }
 
-        // Firebase Functions
+        // Firebase Functions améliorées
         async function saveReportToFirebase(report) {
             try {
                 if (window.db && window.firestore) {
@@ -2288,6 +2269,9 @@
         // Analytics
         function trackEvent(eventName, eventData) {
             console.log('Event tracked:', eventName, eventData);
+            
+            // Vous pouvez intégrer Google Analytics, Facebook Pixel, etc. ici
+            // Exemple: gtag('event', eventName, eventData);
         }
 
         // Mettre à jour les statistiques des signalements
@@ -2302,10 +2286,11 @@
                 pending: reports.filter(r => r.status === 'nouveau').length
             };
             
+            // Vous pouvez afficher ces statistiques quelque part
             console.log('Report Statistics:', stats);
         }
 
-        // Navigation active - CORRIGÉ POUR LE MENU
+        // Navigation active
         function updateActiveNav() {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('nav a');
@@ -2313,7 +2298,7 @@
             let current = '';
             
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
+                const sectionTop = section.offsetTop - 100;
                 const sectionHeight = section.clientHeight;
                 
                 if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
@@ -2351,14 +2336,6 @@
                     
                     // Mettre à jour l'URL sans rechargement
                     history.pushState(null, null, targetId);
-                    
-                    // Fermer le menu mobile si ouvert
-                    const menu = document.getElementById('mainMenu');
-                    const menuBtn = document.getElementById('mobileMenuBtn');
-                    if (menu.classList.contains('active')) {
-                        menu.classList.remove('active');
-                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
                 }
             });
         });
@@ -2394,6 +2371,34 @@
             if (loadTime > 3000) {
                 console.warn('Page load time is high. Consider optimizing images and scripts.');
             }
+        });
+
+        // Service Worker pour PWA (optionnel)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+
+        // Gestion de la visibilité de la page
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                console.log('Page is now hidden');
+                // Pause des animations ou vidéos
+            } else {
+                console.log('Page is now visible');
+                // Reprise des animations
+            }
+        });
+
+        // Error handling global
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            // Vous pouvez envoyer ces erreurs à un service de monitoring
         });
 
         // Network status monitoring
